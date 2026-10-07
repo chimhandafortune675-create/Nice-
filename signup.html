@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join RallyXmon</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #0b0b0f;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 430px;
+            background: #15151c;
+            border: 1px solid #24242d;
+            border-radius: 18px;
+            padding: 35px 25px;
+        }
+
+        .logo {
+            text-align: center;
+            color: #2196f3;
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 26px;
+            margin-bottom: 10px;
+        }
+
+        .intro {
+            text-align: center;
+            color: #aaa;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 18px;
+            background: #0b0b0f;
+            border: 1px solid #30303a;
+            border-radius: 8px;
+            color: white;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #2196f3;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            background: #2196f3;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1976d2;
+        }
+
+        .login {
+            text-align: center;
+            margin-top: 22px;
+            color: #aaa;
+        }
+
+        .login a {
+            color: #2196f3;
+            text-decoration: none;
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #777;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back:hover {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="logo">RallyXmon</div>
+
+        <h1>Create your account</h1>
+
+        <p class="intro">
+            Join RallyXmon and start building your presence,
+            sharing content and discovering new creators.
+        </p>
+
+        <form id="signupForm">
+
+            <label for="name">Username</label>
+            <input
+                type="text"
+                id="name"
+                placeholder="Choose a username"
+                required
+            >
+
+            <label for="email">Email</label>
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                required
+            >
+
+            <label for="password">Password</label>
+            <input
+                type="password"
+                id="password"
+                placeholder="Create a password"
+                required
+            >
+
+            <button type="submit">
+                Create Account
+            </button>
+
+        </form>
+
+        <p class="login">
+            Already have an account?
+            <a href="#">Log in</a>
+        </p>
+
+        <a class="back" href="index.html">
+            ← Back to RallyXmon
+        </a>
+
+    </div>
+
+    <script>
+        document.getElementById("signupForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            alert("Account registration will be connected to RallyXmon soon!");
+        });
+    </script>
+
+</body>
+  </html>
