@@ -35,17 +35,21 @@
         nav a {
             color: white;
             text-decoration: none;
-            margin-left: 15px;
+            margin-left: 18px;
+        }
+
+        nav a:hover {
+            color: #2196f3;
         }
 
         .hero {
             text-align: center;
-            padding: 70px 20px;
+            padding: 90px 20px;
         }
 
         .hero h1 {
             font-size: 48px;
-            margin-bottom: 15px;
+            margin-bottom: 18px;
         }
 
         .hero span {
@@ -55,31 +59,25 @@
         .hero p {
             color: #aaa;
             font-size: 18px;
-            max-width: 600px;
+            line-height: 1.6;
+            max-width: 650px;
             margin: auto;
         }
 
-        .search {
-            margin: 30px auto;
-            display: flex;
-            max-width: 600px;
-        }
-
-        .search input {
-            flex: 1;
-            padding: 15px;
-            border: none;
-            border-radius: 8px 0 0 8px;
-            background: #18181f;
-            color: white;
-        }
-
-        .search button {
-            padding: 15px 22px;
-            border: none;
+        .get-started {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 32px;
             background: #2196f3;
             color: white;
-            border-radius: 0 8px 8px 0;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .get-started:hover {
+            background: #1976d2;
         }
 
         .sections {
@@ -108,11 +106,20 @@
 
         .join {
             text-align: center;
-            padding: 60px 20px;
+            padding: 80px 20px;
+        }
+
+        .join h2 {
+            font-size: 30px;
+        }
+
+        .join p {
+            color: #aaa;
+            margin-top: 10px;
         }
 
         .join button {
-            margin-top: 20px;
+            margin-top: 25px;
             padding: 15px 30px;
             border: none;
             border-radius: 8px;
@@ -120,6 +127,11 @@
             color: white;
             font-size: 17px;
             font-weight: bold;
+            cursor: pointer;
+        }
+
+        .join button:hover {
+            background: #1976d2;
         }
 
         footer {
@@ -138,12 +150,13 @@
 
     <nav>
         <a href="#">Home</a>
-        <a href="#">Discover</a>
-        <a href="#">Create</a>
+        <a href="#discover">Discover</a>
+        <a href="#create">Create</a>
     </nav>
 </header>
 
 <section class="hero">
+
     <h1>Welcome to <span>RallyXmon</span></h1>
 
     <p>
@@ -152,44 +165,70 @@
         sell products and unlock new opportunities.
     </p>
 
-    <div class="search">
-        <input type="text" placeholder="Search RallyXmon">
-        <button>Search</button>
-    </div>
+    <a href="#join" class="get-started">Get Started</a>
+
 </section>
 
 <section class="sections">
 
-    <div class="card">
+    <div class="card" id="discover">
         <h2>Discover</h2>
-        <p>Find creators, videos and fresh content from around the platform.</p>
+        <p>
+            Find creators, videos and fresh content
+            from around the platform.
+        </p>
     </div>
 
-    <div class="card">
+    <div class="card" id="create">
         <h2>Create</h2>
-        <p>Share your ideas and content with people around the world.</p>
+        <p>
+            Share your ideas and content with people
+            around the world.
+        </p>
     </div>
 
     <div class="card">
         <h2>Earn</h2>
-        <p>Build your audience and unlock opportunities to earn.</p>
+        <p>
+            Build your audience and unlock opportunities
+            to earn from your creativity.
+        </p>
     </div>
 
     <div class="card">
         <h2>Marketplace</h2>
-        <p>Showcase and sell your products to your audience.</p>
+        <p>
+            Showcase and sell your products to your
+            audience.
+        </p>
     </div>
 
 </section>
 
-<section class="join">
+<section class="join" id="join">
+
     <h2>Ready to join RallyXmon?</h2>
-    <button>Get Started</button>
+
+    <p>
+        Create your account and start building your
+        presence on RallyXmon.
+    </p>
+
+    <button onclick="startRallyXmon()">
+        Get Started
+    </button>
+
 </section>
 
 <footer>
     © 2026 RallyXmon. All rights reserved.
 </footer>
 
+<script>
+    function startRallyXmon() {
+        alert("RallyXmon account registration is coming soon!");
+    }
+</script>
+
 </body>
-      </html>
+    </html>
