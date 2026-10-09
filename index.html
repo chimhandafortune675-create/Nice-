@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,20 +23,27 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px;
+            padding: 18px 20px;
             border-bottom: 1px solid #222;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .logo {
-            font-size: 28px;
+            font-size: 27px;
             font-weight: bold;
             color: #2196f3;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
         }
 
         nav a {
             color: white;
             text-decoration: none;
-            margin-left: 18px;
         }
 
         nav a:hover {
@@ -44,11 +52,11 @@
 
         .hero {
             text-align: center;
-            padding: 90px 20px;
+            padding: 75px 20px;
         }
 
         .hero h1 {
-            font-size: 48px;
+            font-size: clamp(32px, 7vw, 48px);
             margin-bottom: 18px;
         }
 
@@ -58,38 +66,100 @@
 
         .hero p {
             color: #aaa;
-            font-size: 18px;
-            line-height: 1.6;
+            font-size: 17px;
+            line-height: 1.7;
             max-width: 650px;
             margin: auto;
         }
 
-        .get-started {
+        button, .primary-button {
+            border: none;
             display: inline-block;
-            margin-top: 30px;
-            padding: 15px 32px;
+            margin-top: 18px;
+            padding: 13px 24px;
             background: #2196f3;
             color: white;
             text-decoration: none;
             border-radius: 8px;
-            font-size: 17px;
+            font-size: 16px;
             font-weight: bold;
+            cursor: pointer;
         }
 
-        .get-started:hover {
+        button:hover, .primary-button:hover {
             background: #1976d2;
+        }
+
+        .secondary-button {
+            background: #252530;
+        }
+
+        .secondary-button:hover {
+            background: #383847;
+        }
+
+        .account {
+            display: none;
+            max-width: 430px;
+            margin: 0 auto 40px;
+            padding: 25px;
+            background: #15151c;
+            border: 1px solid #292936;
+            border-radius: 15px;
+        }
+
+        .account h2 {
+            color: #2196f3;
+            margin-bottom: 12px;
+        }
+
+        .account p {
+            color: #aaa;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .account input {
+            display: block;
+            width: 100%;
+            margin: 12px 0;
+            padding: 14px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background: #0b0b0f;
+            color: white;
+            font-size: 16px;
+        }
+
+        .account button {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .switch-mode {
+            color: #2196f3;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        #message {
+            overflow-wrap: anywhere;
+            font-size: 14px;
+            margin-top: 15px;
         }
 
         .sections {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(
+                auto-fit, minmax(220px, 1fr)
+            );
             gap: 20px;
-            padding: 30px;
+            padding: 25px;
         }
 
         .card {
             background: #15151c;
-            padding: 30px;
+            padding: 25px;
             border-radius: 15px;
             border: 1px solid #24242d;
         }
@@ -109,7 +179,11 @@
             padding: 30px;
             color: #666;
             border-top: 1px solid #222;
-            margin-top: 40px;
+            margin-top: 35px;
+        }
+
+        [hidden] {
+            display: none !important;
         }
     </style>
 </head>
@@ -122,28 +196,82 @@
     <nav>
         <a href="#">Home</a>
         <a href="#discover">Discover</a>
-        <a href="#create">Create</a>
+        <a href="#account" id="createLink">Create Account</a>
     </nav>
 </header>
 
 <section class="hero">
-
     <h1>Welcome to <span>RallyXmon</span></h1>
 
     <p>
         Discover new content, share your creativity,
-        build your audience, earn from your content,
-        sell products and unlock new opportunities.
+        build your audience, sell products and unlock
+        new opportunities.
     </p>
 
-    <a href="#discover" class="get-started">
-        Get Started
-    </a>
+    <button id="getStarted">Get Started</button>
+</section>
 
+<section class="account" id="account">
+    <h2 id="formTitle">Create your account</h2>
+
+    <p id="formDescription">
+        Join RallyXmon and get started.
+    </p>
+
+    <div id="authForms">
+        <form id="emailForm">
+            <input
+                type="email"
+                id="email"
+                placeholder="Email address"
+                autocomplete="email"
+                required
+            >
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Password (at least 6 characters)"
+                autocomplete="new-password"
+                minlength="6"
+                required
+            >
+
+            <button type="submit" id="emailSubmit">
+                Create Account
+            </button>
+        </form>
+
+        <button type="button" id="googleButton"
+                class="secondary-button">
+            Continue with Google
+        </button>
+
+        <p style="margin-top:18px">
+            <span id="switchText">Already have an account?</span>
+            <span class="switch-mode" id="switchMode">
+                Sign in
+            </span>
+        </p>
+    </div>
+
+    <div id="signedIn" hidden>
+        <p id="userDetails"></p>
+        <p>
+            You're signed in. Creator profiles and saved
+            account settings will be connected next.
+        </p>
+        <button type="button" id="signOut"
+                class="secondary-button">
+            Sign Out
+        </button>
+    </div>
+
+    <p id="message" role="status" aria-live="polite"></p>
 </section>
 
 <section class="sections">
-
     <div class="card" id="discover">
         <h2>Discover</h2>
         <p>
@@ -155,32 +283,216 @@
     <div class="card" id="create">
         <h2>Create</h2>
         <p>
-            Share your ideas and content with people
-            around the world.
+            Sign up to begin your journey as a creator.
         </p>
     </div>
 
     <div class="card">
         <h2>Earn</h2>
         <p>
-            Build your audience and unlock opportunities
-            to earn from your creativity.
+            Build your audience and explore future
+            earning opportunities.
         </p>
     </div>
 
     <div class="card">
         <h2>Marketplace</h2>
         <p>
-            Showcase and sell your products to your
-            audience.
+            Discover opportunities to showcase and
+            sell products.
         </p>
     </div>
-
 </section>
 
 <footer>
     © 2026 RallyXmon. All rights reserved.
 </footer>
 
+<script type="module">
+    import { initializeApp }
+        from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+
+    import {
+        getAuth,
+        createUserWithEmailAndPassword,
+        signInWithEmailAndPassword,
+        GoogleAuthProvider,
+        signInWithRedirect,
+        getRedirectResult,
+        onAuthStateChanged,
+        signOut
+    } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyAfEauorhanldytrbCMchmwUf7PMv4_TnA",
+        authDomain: "rallyxmon-58dfd.firebaseapp.com",
+        projectId: "rallyxmon-58dfd",
+        storageBucket: "rallyxmon-58dfd.firebasestorage.app",
+        messagingSenderId: "408218925377",
+        appId: "1:408218925377:web:6a4dbda25446412aaf89c0",
+        measurementId: "G-TGGVZVG4HP"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const googleProvider = new GoogleAuthProvider();
+
+    const account = document.getElementById("account");
+    const emailForm = document.getElementById("emailForm");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const message = document.getElementById("message");
+    const formTitle = document.getElementById("formTitle");
+    const formDescription = document.getElementById("formDescription");
+    const emailSubmit = document.getElementById("emailSubmit");
+    const switchMode = document.getElementById("switchMode");
+    const switchText = document.getElementById("switchText");
+    const authForms = document.getElementById("authForms");
+    const signedIn = document.getElementById("signedIn");
+    const userDetails = document.getElementById("userDetails");
+
+    let mode = "signup";
+
+    function showMessage(text, isError = false) {
+        message.textContent = text;
+        message.style.color = isError ? "#ff7777" : "#75e39a";
+    }
+
+    function openAccount() {
+        account.style.display = "block";
+        account.scrollIntoView({ behavior: "smooth" });
+    }
+
+    document.getElementById("getStarted").addEventListener(
+        "click", openAccount
+    );
+
+    document.getElementById("createLink").addEventListener(
+        "click", openAccount
+    );
+
+    switchMode.addEventListener("click", () => {
+        mode = mode === "signup" ? "signin" : "signup";
+
+        formTitle.textContent = mode === "signup"
+            ? "Create your account" : "Welcome back";
+
+        formDescription.textContent = mode === "signup"
+            ? "Join RallyXmon and get started."
+            : "Sign in to your RallyXmon account.";
+
+        emailSubmit.textContent = mode === "signup"
+            ? "Create Account" : "Sign In";
+
+        passwordInput.autocomplete = mode === "signup"
+            ? "new-password" : "current-password";
+
+        switchText.textContent = mode === "signup"
+            ? "Already have an account?" : "New to RallyXmon?";
+
+        switchMode.textContent = mode === "signup"
+            ? "Sign in" : "Create account";
+
+        showMessage("");
+    });
+
+    emailForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        showMessage("Please wait...");
+
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
+
+        try {
+            if (mode === "signup") {
+                await createUserWithEmailAndPassword(
+                    auth, email, password
+                );
+            } else {
+                await signInWithEmailAndPassword(
+                    auth, email, password
+                );
+            }
+        } catch (error) {
+            const messages = {
+                "auth/email-already-in-use":
+                    "This email already has an account. Try signing in.",
+                "auth/invalid-email":
+                    "Please enter a valid email address.",
+                "auth/weak-password":
+                    "Choose a stronger password with at least 6 characters.",
+                "auth/invalid-credential":
+                    "Email or password is incorrect.",
+                "auth/network-request-failed":
+                    "Connection failed. Check your internet and try again.",
+                "auth/too-many-requests":
+                    "Too many attempts. Please try again later."
+            };
+
+            showMessage(
+                messages[error.code] ||
+                "Could not complete the request. Error: " +
+                error.code,
+                true
+            );
+        }
+    });
+
+    document.getElementById("googleButton").addEventListener(
+        "click", async () => {
+            try {
+                showMessage("Opening Google sign-in...");
+                await signInWithRedirect(auth, googleProvider);
+            } catch (error) {
+                showMessage(
+                    "Google sign-in failed: " + error.code,
+                    true
+                );
+            }
+        }
+    );
+
+    try {
+        await getRedirectResult(auth);
+    } catch (error) {
+        showMessage(
+            "Google sign-in issue: " + error.code,
+            true
+        );
+    }
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            authForms.hidden = true;
+            signedIn.hidden = false;
+            formTitle.textContent = "Your RallyXmon Account";
+            formDescription.textContent = "You're signed in.";
+            userDetails.textContent =
+                "Signed in as: " + (user.email || user.displayName || "User");
+            showMessage("Sign-in successful.");
+        } else {
+            authForms.hidden = false;
+            signedIn.hidden = true;
+            formTitle.textContent = mode === "signup"
+                ? "Create your account" : "Welcome back";
+            formDescription.textContent = mode === "signup"
+                ? "Join RallyXmon and get started."
+                : "Sign in to your RallyXmon account.";
+        }
+    });
+
+    document.getElementById("signOut").addEventListener(
+        "click", async () => {
+            try {
+                await signOut(auth);
+                showMessage("You've signed out.");
+            } catch (error) {
+                showMessage("Sign-out failed: " + error.code, true);
+            }
+        }
+    );
+</script>
+
 </body>
     </html>
+    
