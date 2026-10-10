@@ -446,5 +446,162 @@ document.getElementById("signOut").addEventListener(
     }    
 );
 
-</script>  </body>
+</script> 
+
+<!-- RALLYXMON VIDEO FEED -->
+<style>
+#rallyFeed {
+    display: none;
+    background: #0b0b0f;
+    color: white;
+    min-height: 100vh;
+    padding-bottom: 30px;
+}
+#rallyFeed * { box-sizing: border-box; }
+#rallyFeed .feed-header {
+    padding: 18px;
+    border-bottom: 1px solid #292936;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    position: sticky;
+    top: 0;
+    background: #0b0b0f;
+    z-index: 5;
+}
+#rallyFeed .feed-logo {
+    font-size: 27px;
+    font-weight: bold;
+    color: #2196f3;
+}
+#rallyFeed .feed-content {
+    width: 100%;
+    max-width: 650px;
+    margin: auto;
+    padding: 16px;
+}
+#rallyFeed .feed-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+#rallyFeed button {
+    border: 0;
+    border-radius: 8px;
+    padding: 11px 15px;
+    background: #2196f3;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+#rallyFeed .feed-tabs button {
+    flex: 1;
+    background: #20202b;
+}
+#rallyFeed .feed-tabs button.active {
+    background: #2196f3;
+}
+#rallyFeed .post-box,
+#rallyFeed .video-card {
+    background: #15151c;
+    border: 1px solid #292936;
+    border-radius: 13px;
+    padding: 16px;
+    margin-bottom: 18px;
+}
+#rallyFeed .post-box input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 8px;
+    border: 1px solid #383847;
+    background: #0b0b0f;
+    color: white;
+}
+#rallyFeed .video-card video {
+    width: 100%;
+    max-height: 440px;
+    background: black;
+    border-radius: 9px;
+    margin-top: 12px;
+}
+#rallyFeed .post-caption {
+    margin: 12px 0;
+    overflow-wrap: anywhere;
+}
+#rallyFeed .post-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+#rallyFeed .post-actions button {
+    background: #252530;
+}
+#rallyFeed .post-actions .delete-post {
+    background: #8c3038;
+}
+#rallyFeed .feed-message {
+    color: #aaa;
+    margin: 12px 0;
+    overflow-wrap: anywhere;
+}
+#rallyFeed .feed-search {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 16px;
+    background: #15151c;
+    border: 1px solid #292936;
+    border-radius: 8px;
+    color: white;
+}
+</style>
+
+<section id="rallyFeed">
+    <header class="feed-header">
+        <div class="feed-logo">R RallyXmon</div>
+        <button type="button" id="feedSignOut">Sign Out</button>
+    </header>
+
+    <main class="feed-content">
+        <h2 style="margin-bottom:16px">Your video feed</h2>
+
+        <div class="feed-tabs">
+            <button type="button" class="active"
+                id="allPostsTab">Videos</button>
+            <button type="button"
+                id="myPostsTab">My posts</button>
+        </div>
+
+        <form class="post-box" id="rallyPostForm">
+            <h3>Create a post</h3>
+            <input id="rallyCaption"
+                placeholder="Write a caption..."
+                maxlength="1000">
+            <input id="rallyVideo"
+                type="file"
+                accept="video/*"
+                required>
+            <p class="feed-message" id="rallyUploadMessage">
+                Choose a video to get started.
+            </p>
+            <button type="submit" id="rallyPublish">
+                Publish video
+            </button>
+        </form>
+
+        <input class="feed-search" id="rallySearch"
+            placeholder="Search video captions...">
+
+        <div id="rallyPosts">
+            <p class="feed-message">
+                Sign in to load your video feed.
+            </p>
+        </div>
+    </main>
+</section>
+<!-- END RALLYXMON VIDEO FEED -->
+    
+</body>
   </html>
