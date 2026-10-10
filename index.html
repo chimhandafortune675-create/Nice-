@@ -3,287 +3,136 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>RallyXmon</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#0b0b0f;color:white;font-family:Arial,sans-serif}
-[hidden]{display:none!important}
-header{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid #222;gap:15px;flex-wrap:wrap}
+body{background:#0b0b0f;color:#fff;font-family:Arial,sans-serif}
+header{display:flex;align-items:center;justify-content:space-between;
+padding:16px;border-bottom:1px solid #292936;gap:12px}
 .logo{font-size:25px;font-weight:bold;color:#2196f3}
-header nav{display:flex;gap:16px;flex-wrap:wrap}
-header nav a{color:white;text-decoration:none}
-.hero{text-align:center;padding:65px 20px}
-.hero h1{font-size:clamp(32px,7vw,48px);margin-bottom:18px}
-.hero span{color:#2196f3}
-.hero p{color:#aaa;line-height:1.7;max-width:650px;margin:auto}
-button,.primary-button{border:0;display:inline-block;margin-top:12px;padding:12px 18px;background:#2196f3;color:white;text-decoration:none;border-radius:8px;font-size:14px;font-weight:bold;cursor:pointer}
-button:hover{background:#1976d2}
-.secondary-button{background:#252530}
-.account{display:none;max-width:430px;margin:0 auto 40px;padding:25px;background:#15151c;border:1px solid #292936;border-radius:15px}
-.account h2{color:#2196f3;margin-bottom:12px}
-.account p{color:#aaa;line-height:1.5;margin:12px 0}
-.account input{display:block;width:100%;margin:12px 0;padding:14px;border:1px solid #333;border-radius:8px;background:#0b0b0f;color:white;font-size:16px}
-.account button{width:100%}
-.switch-mode{color:#2196f3;cursor:pointer;text-decoration:underline}
-#message{overflow-wrap:anywhere;font-size:14px;margin-top:15px}
-.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;padding:25px}
-.card{background:#15151c;padding:25px;border-radius:15px;border:1px solid #24242d}
-.card h2{margin-bottom:12px;color:#2196f3}
-.card p{color:#aaa;line-height:1.5}
-footer{text-align:center;padding:30px;color:#666;border-top:1px solid #222;margin-top:35px}
-
-/* RALLYXMON VIDEO FEED */
-#videoFeed{max-width:850px;margin:auto;padding:14px 14px 95px}
-.feed-header{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.feed-header .logo{font-size:23px}
-.feed-tools{display:flex;gap:8px}
-.feed-tools button{margin:0;padding:9px 12px;background:#171923;border:1px solid #292d3a}
-.search-box input,#createPanel input,#createPanel select,#createPanel textarea{width:100%;padding:12px;margin-top:12px;background:#151923;color:white;border:1px solid #343746;border-radius:8px;font-size:15px}
-.category-row{display:flex;gap:8px;overflow-x:auto;padding:16px 0}
-.category-row button{white-space:nowrap;margin:0;padding:9px 14px;background:#171923;border:1px solid #292d3a}
-.category-row button.active{background:#2196f3}
-.feed-heading{margin:8px 0 16px}
-.feed-heading h2,#shortsSection h2,#createPanel h2,#profilePanel h2{margin-bottom:7px}
-.feed-heading p,.feed-muted{color:#aaa}
-.video-card{background:#111219;border:1px solid #242631;border-radius:12px;overflow:hidden;margin-bottom:20px}
-.video-thumb{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:#202431}
-.video-info{display:flex;align-items:flex-start;gap:11px;padding:12px}
-.creator-avatar,.profile-logo{flex-shrink:0;display:grid;place-items:center;width:39px;height:39px;border-radius:50%;background:#2196f3;font-size:20px;font-weight:bold}
-.video-details{min-width:0;flex:1}
-.video-details h3{font-size:16px;margin-bottom:6px}
-.video-details p{color:#aaa;font-size:13px;margin:5px 0}
-.video-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.video-actions button{font-size:12px;padding:8px 9px;margin:0;background:#171923;border:1px solid #292d3a}
-.video-actions button.selected{background:#2196f3}
-#shortsSection{margin-top:25px}
-.blue-r{color:#2196f3}
-.shorts-row{display:flex;gap:12px;overflow-x:auto}
-.short-card{flex:0 0 46%;background:#15151c;border:1px solid #292936;border-radius:10px;overflow:hidden;padding:0;margin:0;text-align:left}
-.short-card img{width:100%;aspect-ratio:9/14;object-fit:cover;display:block}
-.short-card span{display:block;padding:10px;color:white}
-#videoPreview{width:100%;margin-top:12px;max-height:400px}
-#uploadMessage{color:#75e39a;margin-top:10px}
-#profilePanel{padding:20px 0}
-.profile-logo{width:70px;height:70px;margin:18px 0;font-size:35px}
-.profile-action{width:100%;margin-top:10px}
-.bottom-nav{position:fixed;z-index:10;bottom:0;left:0;right:0;display:flex;justify-content:space-around;gap:3px;padding:8px 3px max(8px,env(safe-area-inset-bottom));background:#0b0b0f;border-top:1px solid #292936}
-.bottom-nav button{border:0;background:transparent;color:#aaa;padding:5px 3px;margin:0;flex:1;font-size:19px}
-.bottom-nav button span{display:block;font-size:10px;margin-top:4px}
-.bottom-nav button.active{color:#2196f3}
-#accountSettings button{width:100%}
-.empty-message{color:#aaa;padding:15px 0}
-@media(min-width:700px){
-#videoFeed{max-width:900px}
-.video-card{display:grid;grid-template-columns:44% 56%}
-.video-thumb{height:100%;min-height:180px}
-}
+button,.btn{border:0;border-radius:8px;padding:12px 16px;
+background:#2196f3;color:white;font-weight:bold;cursor:pointer}
+button:disabled{opacity:.5}
+.secondary{background:#252530}
+input,textarea{width:100%;padding:13px;margin:8px 0;
+border:1px solid #333;border-radius:8px;background:#101016;
+color:white;font-size:16px}
+textarea{min-height:90px;resize:vertical}
+main{max-width:760px;margin:auto;padding:18px}
+.panel,.post{background:#15151c;border:1px solid #292936;
+border-radius:14px;padding:18px;margin:16px 0}
+h1,h2{margin-bottom:12px}
+p{line-height:1.5;color:#bbb}
+.blue{color:#2196f3}
+.small{font-size:13px;color:#999;margin:8px 0}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.actions button{flex:1}
+video{width:100%;max-height:460px;background:#000;
+border-radius:10px;margin-top:12px}
+.post-text{white-space:pre-wrap;overflow-wrap:anywhere;margin-top:12px}
+#message{padding:10px 0;overflow-wrap:anywhere}
+[hidden]{display:none!important}
+nav{display:flex;gap:8px;align-items:center}
 </style>
 </head>
 <body>
-
-<!-- ORIGINAL WELCOME PAGE -->
-<header id="landingHeader">
-  <div class="logo">RallyXmon</div>
+<header>
+  <div class="logo">Ⓡ RallyXmon</div>
   <nav>
-    <a href="#" id="homeLink">Home</a>
-    <a href="#discover" id="discoverLink">Discover</a>
-    <a href="#account" id="createLink">Create Account</a>
+    <button id="homeButton" class="secondary" hidden>Feed</button>
+    <button id="headerSignOut" class="secondary" hidden>Sign out</button>
   </nav>
 </header>
 
-<section class="hero" id="landingHero">
-  <h1>Welcome to <span>RallyXmon</span></h1>
-  <p>Discover new content, share your creativity, build your audience, sell products and unlock new opportunities.</p>
-  <button id="getStarted">Get Started</button>
-</section>
+<main>
+  <section id="landing">
+    <div class="panel" style="text-align:center;padding:40px 20px">
+      <h1>Welcome to <span class="blue">RallyXmon</span></h1>
+      <p>Discover content. Share your creativity. Build your audience.</p>
+      <button id="getStarted" style="margin-top:20px">Get Started</button>
+    </div>
+    <div id="account" class="panel" hidden>
+      <h2 id="formTitle">Create your account</h2>
+      <p id="formDescription">Join RallyXmon.</p>
+      <form id="emailForm">
+        <input id="email" type="email" placeholder="Email address"
+          autocomplete="email" required>
+        <input id="password" type="password"
+          placeholder="Password (at least 6 characters)"
+          autocomplete="new-password" minlength="6" required>
+        <button id="emailSubmit" type="submit">Create account</button>
+      </form>
+      <button id="googleButton" class="secondary"
+        style="width:100%;margin-top:10px">Continue with Google</button>
+      <p style="margin-top:16px">
+        <span id="switchText">Already have an account?</span>
+        <a id="switchMode" href="#" class="blue">Sign in</a>
+      </p>
+    </div>
+    <div class="panel">
+      <h2 class="blue">Discover</h2>
+      <p>Explore content from different creators and categories.</p>
+      <h2 class="blue" style="margin-top:20px">Create</h2>
+      <p>Share posts and videos with the community.</p>
+      <h2 class="blue" style="margin-top:20px">Earn</h2>
+      <p>Creator earning opportunities can be added as the platform develops.</p>
+      <h2 class="blue" style="margin-top:20px">Marketplace</h2>
+      <p>Build towards a place for creators and products.</p>
+    </div>
+  </section>
 
-<section class="account" id="account">
-  <h2 id="formTitle">Create your account</h2>
-  <p id="formDescription">Join RallyXmon and get started.</p>
+  <section id="feed" hidden>
+    <div class="panel">
+      <h1>Welcome to the <span class="blue">Feed</span></h1>
+      <p id="userLabel"></p>
+      <div class="actions">
+        <button class="secondary filter" data-filter="all">All posts</button>
+        <button class="secondary filter" data-filter="video">Videos</button>
+        <button class="secondary filter" data-filter="text">Text posts</button>
+      </div>
+    </div>
 
-  <div id="authForms">
-    <form id="emailForm">
-      <input type="email" id="email" placeholder="Email address" autocomplete="email" required>
-      <input type="password" id="password" placeholder="Password (at least 6 characters)" autocomplete="new-password" minlength="6" required>
-      <button type="submit" id="emailSubmit">Create Account</button>
-    </form>
-    <button type="button" id="googleButton" class="secondary-button">Continue with Google</button>
-    <p><span id="switchText">Already have an account?</span> <span class="switch-mode" id="switchMode">Sign in</span></p>
-  </div>
+    <div class="panel">
+      <h2>Create a post</h2>
+      <form id="postForm">
+        <textarea id="postText" maxlength="3000"
+          placeholder="What would you like to share?"></textarea>
+        <label for="videoFile" class="small">Add a video (optional)</label>
+        <input id="videoFile" type="file" accept="video/*">
+        <p class="small">Choose a video you have permission to share.
+        Large videos use mobile data and storage.</p>
+        <button id="postButton" type="submit">Publish post</button>
+      </form>
+    </div>
 
-  <div id="signedIn" hidden>
-    <p id="userDetails"></p>
-    <p>You're signed in to RallyXmon.</p>
-    <button type="button" id="openFeedButton">Open Video Feed</button>
-    <button type="button" id="signOut" class="secondary-button">Sign Out</button>
-  </div>
+    <h2>Community posts</h2>
+    <p id="feedStatus" class="small">Loading posts...</p>
+    <div id="posts"></div>
+  </section>
+
   <p id="message" role="status" aria-live="polite"></p>
-</section>
+  <footer style="text-align:center;padding:25px;color:#777">
+    © 2026 RallyXmon
+  </footer>
+</main>
 
-<section class="sections" id="landingSections">
-  <div class="card" id="discover">
-    <h2>Discover</h2>
-    <p>Find creators, videos and fresh content from around the platform.</p>
-  </div>
-  <div class="card">
-    <h2>Create</h2>
-    <p>Sign up to begin your journey as a creator.</p>
-  </div>
-  <div class="card">
-    <h2>Earn</h2>
-    <p>Build your audience and explore future earning opportunities.</p>
-  </div>
-  <div class="card">
-    <h2>Marketplace</h2>
-    <p>Discover opportunities to showcase and sell products.</p>
-  </div>
-</section>
-
-<footer id="landingFooter">© 2026 RallyXmon. All rights reserved.</footer>
- 
-<!-- SIGNED-IN VIDEO FEED -->
-<section id="videoFeed" hidden>
-  <div class="feed-header">
-    <div class="logo">R <span style="color:white">RallyXmon</span></div>
-    <div class="feed-tools">
-      <button type="button" id="searchToggle" aria-label="Search">⌕</button>
-      <button type="button" id="profileButton" aria-label="Account">👤</button>
-    </div>
-  </div>
-
-  <div class="search-box" id="searchBox" hidden>
-    <input id="videoSearch" type="search" placeholder="Search videos and creators...">
-  </div>
-
-  <div class="category-row" id="categories">
-    <button class="active" data-category="All">All</button>
-    <button data-category="Football">Football</button>
-    <button data-category="Gaming">Gaming</button>
-    <button data-category="Music">Music</button>
-    <button data-category="Travel">Travel</button>
-    <button data-category="Other">Other</button>
-  </div>
-
-  <div class="feed-heading" id="feedHeading">
-    <h2>Discover videos</h2>
-    <p>Find something you love.</p>
-  </div>
-
-  <div id="videoList">
-    <article class="video-card" data-category="Football" data-search="portugal football ronaldo highlights">
-      <img class="video-thumb" src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=900&q=80" alt="Football field">
-      <div class="video-info">
-        <div class="creator-avatar">R</div>
-        <div class="video-details">
-          <h3>Football Highlights ⚽</h3>
-          <p>RallyCreator · Football</p><p>Sample video · 8:12</p>
-          <div class="video-actions">
-            <button type="button" class="like-btn">♡ Like</button>
-            <button type="button" class="comment-btn">💬 Comment</button>
-            <button type="button" class="share-btn">↗ Share</button>
-            <button type="button" class="follow-btn">+ Follow</button>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <article class="video-card" data-category="Gaming" data-search="car racing gameplay games">
-      <img class="video-thumb" src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=900&q=80" alt="Sports car">
-      <div class="video-info">
-        <div class="creator-avatar">G</div>
-        <div class="video-details">
-          <h3>Car Racing Gameplay 🏁</h3>
-          <p>GameZone · Gaming</p><p>Sample video · 12:24</p>
-          <div class="video-actions">
-            <button type="button" class="like-btn">♡ Like</button>
-            <button type="button" class="comment-btn">💬 Comment</button>
-            <button type="button" class="share-btn">↗ Share</button>
-            <button type="button" class="follow-btn">+ Follow</button>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <article class="video-card" data-category="Music" data-search="music singer new songs">
-      <img class="video-thumb" src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=900&q=80" alt="Singer performing">
-      <div class="video-info">
-        <div class="creator-avatar">M</div>
-        <div class="video-details">
-          <h3>Discover New Music 🎵</h3>
-          <p>MusicWorld · Music</p><p>Sample video · 4:36</p>
-          <div class="video-actions">
-            <button type="button" class="like-btn">♡ Like</button>
-            <button type="button" class="comment-btn">💬 Comment</button>
-            <button type="button" class="share-btn">↗ Share</button>
-            <button type="button" class="follow-btn">+ Follow</button>
-          </div>
-        </div>
-      </div>
-    </article>
-  </div>
-
-  <p id="noVideos" class="empty-message" hidden>No videos found in this category.</p>
-
-  <section id="shortsSection">
-    <h2>Shorts <span class="blue-r">R</span></h2>
-    <p class="feed-muted" style="margin:8px 0 12px">Quick videos to discover.</p>
-    <div class="shorts-row">
-      <button type="button" class="short-card" data-short="Football Short">
-        <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=500&q=80" alt="Football pitch">
-        <span>▶ Football Short</span>
-      </button>
-      <button type="button" class="short-card" data-short="Racing Short">
-        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=500&q=80" alt="Sports car">
-        <span>▶ Racing Short</span>
-      </button>
-    </div>
-  </section>
-
-  <!-- CREATE / LOCAL PREVIEW -->
-  <section id="createPanel" hidden style="padding-top:20px">
-    <h2>Create a post</h2>
-    <p class="feed-muted">Choose a video from your phone to preview it.</p>
-    <input type="file" id="videoFile" accept="video/*">
-    <input type="text" id="newVideoTitle" placeholder="Video title">
-    <select id="newVideoCategory">
-      <option>Football</option>
-      <option>Gaming</option>
-      <option>Music</option>
-      <option>Travel</option>
-      <option>Other</option>
-    </select>
-    <button type="button" id="postVideo">Preview Post</button>
-    <p id="uploadMessage" role="status"></p>
-    <video id="videoPreview" controls hidden></video>
-  </section>
-
-  <!-- ACCOUNT / PROFILE -->
-  <section id="profilePanel" hidden>
-    <h2>Your creator account</h2>
-    <div class="profile-logo">R</div>
-    <p id="profileEmail" style="overflow-wrap:anywhere;color:#aaa"></p>
-    <p class="feed-muted">Your account is signed in. Profile details and saved activity will be connected to the database later.</p>
-    <button type="button" id="backToFeed" class="profile-action">Back to videos</button>
-    <button type="button" id="profileSignOut" class="profile-action secondary-button">Sign Out</button>
-  </section>
-
-  <nav class="bottom-nav" aria-label="Main navigation">
-    <button type="button" data-page="home" class="active">⌂<span>Home</span></button>
-    <button type="button" data-page="shorts">▶<span>Shorts</span></button>
-    <button type="button" data-page="create">＋<span>Create</span></button>
-    <button type="button" data-page="discover">⌕<span>Discover</span></button>
-    <button type="button" data-page="account">☻<span>Account</span></button>
-  </nav>
-     </section>
-     
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+import { initializeApp }
+  from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
 import {
-  getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
-  GoogleAuthProvider, signInWithRedirect, getRedirectResult,
-  onAuthStateChanged, signOut
+  getAuth, createUserWithEmailAndPassword,
+  signInWithEmailAndPassword, GoogleAuthProvider,
+  signInWithRedirect, getRedirectResult, onAuthStateChanged,
+  signOut
 } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+import {
+  getFirestore, collection, addDoc, deleteDoc, doc,
+  query, orderBy, onSnapshot, serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+import {
+  getStorage, ref, uploadBytes, getDownloadURL, deleteObject
+} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-storage.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAfEauorhanldytrbCMchmwUf7PMv4_TA",
@@ -295,379 +144,276 @@ const firebaseConfig = {
   measurementId: "G-TGGVZVG4HP"
 };
 
+// One Firebase app, one Auth, one Firestore, one Storage.
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
+const storage = getStorage(app);
 const googleProvider = new GoogleAuthProvider();
 
-const account = document.getElementById("account");
-const emailForm = document.getElementById("emailForm");
-const emailInput = document.getElementById("email");
-const passwordInput = document.getElementById("password");
-const message = document.getElementById("message");
-const formTitle = document.getElementById("formTitle");
-const formDescription = document.getElementById("formDescription");
-const emailSubmit = document.getElementById("emailSubmit");
-const switchMode = document.getElementById("switchMode");
-const switchText = document.getElementById("switchText");
-const authForms = document.getElementById("authForms");
-const signedIn = document.getElementById("signedIn");
-const userDetails = document.getElementById("userDetails");
-
-const landingHeader = document.getElementById("landingHeader");
-const landingHero = document.getElementById("landingHero");
-const landingSections = document.getElementById("landingSections");
-const landingFooter = document.getElementById("landingFooter");
-const videoFeed = document.getElementById("videoFeed");
-
-const videoList = document.getElementById("videoList");
-const videoSearch = document.getElementById("videoSearch");
-const searchBox = document.getElementById("searchBox");
-const createPanel = document.getElementById("createPanel");
-const profilePanel = document.getElementById("profilePanel");
-const shortsSection = document.getElementById("shortsSection");
-const feedHeading = document.getElementById("feedHeading");
-
+const $ = id => document.getElementById(id);
 let mode = "signup";
+let currentUser = null;
+let unsubscribePosts = null;
+let allPosts = [];
+let activeFilter = "all";
 
-function showMessage(text, isError = false) {
-  message.textContent = text;
-  message.style.color = isError ? "#ff7777" : "#75e39a";
+function message(text, error = false) {
+  $("message").textContent = text;
+  $("message").style.color = error ? "#ff7777" : "#75e39a";
 }
 
-function openAccount(event) {
-  if (event) event.preventDefault();
-  account.style.display = "block";
-  account.scrollIntoView({ behavior: "smooth" });
+function showAccount() {
+  $("account").hidden = false;
+  $("account").scrollIntoView({behavior:"smooth",block:"start"});
 }
+$("getStarted").addEventListener("click", showAccount);
 
-function showLanding() {
-  videoFeed.hidden = true;
-  landingHeader.hidden = false;
-  landingHero.hidden = false;
-  landingSections.hidden = false;
-  landingFooter.hidden = false;
-  account.style.display = "none";
-  window.scrollTo(0, 0);
-}
-
-function showFeed() {
-  landingHeader.hidden = true;
-  landingHero.hidden = true;
-  landingSections.hidden = true;
-  landingFooter.hidden = true;
-  account.style.display = "none";
-  videoFeed.hidden = false;
-  showPage("home");
-}
-
-document.getElementById("getStarted").addEventListener("click", openAccount);
-document.getElementById("createLink").addEventListener("click", openAccount);
-
-document.getElementById("homeLink").addEventListener("click", event => {
+$("switchMode").addEventListener("click", event => {
   event.preventDefault();
-  showLanding();
-});
-
-document.getElementById("discoverLink").addEventListener("click", event => {
-  event.preventDefault();
-  openAccount();
-});
-
-document.getElementById("openFeedButton").addEventListener("click", showFeed);
-
-switchMode.addEventListener("click", () => {
   mode = mode === "signup" ? "signin" : "signup";
-  formTitle.textContent = mode === "signup" ? "Create your account" : "Welcome back";
-  formDescription.textContent = mode === "signup"
-    ? "Join RallyXmon and get started."
-    : "Sign in to your RallyXmon account.";
-  emailSubmit.textContent = mode === "signup" ? "Create Account" : "Sign In";
-  passwordInput.autocomplete = mode === "signup" ? "new-password" : "current-password";
-  switchText.textContent = mode === "signup" ? "Already have an account?" : "New to RallyXmon?";
-  switchMode.textContent = mode === "signup" ? "Sign in" : "Create account";
-  showMessage("");
+  $("formTitle").textContent =
+    mode === "signup" ? "Create your account" : "Welcome back";
+  $("formDescription").textContent =
+    mode === "signup" ? "Join RallyXmon." : "Sign in to RallyXmon.";
+  $("emailSubmit").textContent =
+    mode === "signup" ? "Create account" : "Sign in";
+  $("password").autocomplete =
+    mode === "signup" ? "new-password" : "current-password";
+  $("switchText").textContent =
+    mode === "signup" ? "Already have an account?" : "New to RallyXmon?";
+  $("switchMode").textContent =
+    mode === "signup" ? "Sign in" : "Create account";
+  message("");
 });
 
-emailForm.addEventListener("submit", async event => {
+$("emailForm").addEventListener("submit", async event => {
   event.preventDefault();
-  showMessage("Please wait...");
-  const email = emailInput.value.trim();
-  const password = passwordInput.value;
-
+  const button = $("emailSubmit");
+  button.disabled = true;
+  message("Signing in...");
   try {
+    const email = $("email").value.trim();
+    const password = $("password").value;
     if (mode === "signup") {
-      await createUserWithEmailAndPassword(auth, email, password);
+      await createUserWithEmailAndPassword(auth,email,password);
     } else {
-      await signInWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth,email,password);
     }
+    // Auth state listener opens the feed.
   } catch (error) {
-    const messages = {
-      "auth/email-already-in-use": "This email already has an account. Try signing in.",
-      "auth/invalid-email": "Please enter a valid email address.",
-      "auth/weak-password": "Choose a stronger password with at least 6 characters.",
-      "auth/invalid-credential": "Email or password is incorrect.",
-      "auth/network-request-failed": "Connection failed. Check your internet and try again.",
-      "auth/too-many-requests": "Too many attempts. Please try again later."
+    const errors = {
+      "auth/email-already-in-use":"That email already has an account. Sign in instead.",
+      "auth/invalid-email":"Enter a valid email address.",
+      "auth/weak-password":"Choose a stronger password.",
+      "auth/invalid-credential":"Email or password is incorrect.",
+      "auth/unauthorized-domain":"Add this website domain to Firebase Authorized domains.",
+      "auth/network-request-failed":"Connection failed. Check your internet."
     };
-    showMessage(messages[error.code] || "Could not complete request: " + error.code, true);
+    message(errors[error.code] || "Sign-in failed: " + error.code,true);
+  } finally {
+    button.disabled = false;
   }
 });
 
-document.getElementById("googleButton").addEventListener("click", async () => {
+$("googleButton").addEventListener("click", async () => {
   try {
-    showMessage("Opening Google sign-in...");
-    await signInWithRedirect(auth, googleProvider);
+    message("Opening Google sign-in...");
+    await signInWithRedirect(auth,googleProvider);
   } catch (error) {
-    showMessage("Google sign-in failed: " + error.code, true);
+    message("Google sign-in failed: " + error.code,true);
+  }
+});
+
+$("headerSignOut").addEventListener("click", async () => {
+  try {
+    await signOut(auth);
+    message("Signed out.");
+  } catch (error) {
+    message("Sign-out failed: " + error.code,true);
+  }
+});
+
+$("homeButton").addEventListener("click", () => {
+  $("feed").scrollIntoView({behavior:"smooth"});
+});
+
+onAuthStateChanged(auth, user => {
+  currentUser = user;
+  $("landing").hidden = !!user;
+  $("feed").hidden = !user;
+  $("headerSignOut").hidden = !user;
+  $("homeButton").hidden = !user;
+
+  if (user) {
+    $("userLabel").textContent =
+      "Signed in as " + (user.displayName || user.email || "RallyXmon creator");
+    startFeed();
+  } else {
+    if (unsubscribePosts) unsubscribePosts();
+    unsubscribePosts = null;
+    allPosts = [];
+    $("posts").replaceChildren();
   }
 });
 
 try {
   await getRedirectResult(auth);
 } catch (error) {
-  showMessage("Google sign-in issue: " + error.code, true);
+  message("Google sign-in issue: " + error.code,true);
 }
 
-onAuthStateChanged(auth, user => {
-  if (user) {
-    authForms.hidden = true;
-    signedIn.hidden = false;
-    formTitle.textContent = "Your RallyXmon Account";
-    formDescription.textContent = "You're signed in.";
-    userDetails.textContent = "Signed in as: " + (user.email || user.displayName || "User");
-    document.getElementById("profileEmail").textContent =
-      user.displayName || user.email || "RallyXmon creator";
-    showMessage("Sign-in successful.");
-    showFeed();
-  } else {
-    authForms.hidden = false;
-    signedIn.hidden = true;
-    formTitle.textContent = mode === "signup" ? "Create your account" : "Welcome back";
-    formDescription.textContent = mode === "signup"
-      ? "Join RallyXmon and get started."
-      : "Sign in to your RallyXmon account.";
-    showLanding();
+$("postForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  if (!currentUser) {
+    message("Please sign in before posting.",true);
+    return;
   }
-});
 
-async function doSignOut() {
+  const text = $("postText").value.trim();
+  const file = $("videoFile").files[0];
+  if (!text && !file) {
+    message("Write something or choose a video.",true);
+    return;
+  }
+  if (file && !file.type.startsWith("video/")) {
+    message("Please choose a video file.",true);
+    return;
+  }
+  // Avoid huge mobile-data uploads.
+  if (file && file.size > 50 * 1024 * 1024) {
+    message("This demo allows videos up to 50 MB.",true);
+    return;
+  }
+
+  const button = $("postButton");
+  button.disabled = true;
   try {
-    await signOut(auth);
-    showMessage("You've signed out.");
+    let videoUrl = "";
+    let storagePath = "";
+
+    if (file) {
+      message("Uploading video...");
+      storagePath = "posts/" + currentUser.uid + "/" +
+        Date.now() + "_" + file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
+      const fileRef = ref(storage,storagePath);
+      await uploadBytes(fileRef,file,{contentType:file.type});
+      videoUrl = await getDownloadURL(fileRef);
+    }
+
+    message("Publishing post...");
+    await addDoc(collection(db,"posts"),{
+      uid: currentUser.uid,
+      author: currentUser.displayName || currentUser.email || "Creator",
+      text,
+      videoUrl,
+      storagePath,
+      createdAt: serverTimestamp()
+    });
+
+    $("postText").value = "";
+    $("videoFile").value = "";
+    message("Post published!");
   } catch (error) {
-    showMessage("Sign-out failed: " + error.code, true);
+    message("Could not publish: " + error.code,true);
+  } finally {
+    button.disabled = false;
   }
-}
+});
 
-document.getElementById("signOut").addEventListener("click", doSignOut);
-document.getElementById("profileSignOut").addEventListener("click", doSignOut);
-
-/* FEED NAVIGATION */
-function showPage(page) {
-  const videoList = document.getElementById("videoList");
-  const categories = document.getElementById("categories");
-  const noVideos = document.getElementById("noVideos");
-
-  document.getElementById("createPanel").hidden = page !== "create";
-  document.getElementById("profilePanel").hidden = page !== "account";
-
-  videoList.hidden = page === "create" || page === "account";
-  shortsSection.hidden = page === "create" || page === "account";
-  feedHeading.hidden = page === "create" || page === "account";
-  categories.hidden = page === "create" || page === "account";
-
-  searchBox.hidden = page !== "discover";
-
-  if (page === "shorts") {
-    videoList.hidden = true;
-    feedHeading.hidden = true;
-    categories.hidden = true;
-    shortsSection.hidden = false;
-    shortsSection.scrollIntoView({ behavior: "smooth", block: "start" });
-  } else {
-    window.scrollTo(0, 0);
-  }
-
-  document.querySelectorAll(".bottom-nav button").forEach(button => {
-    button.classList.toggle("active", button.dataset.page === page);
+function startFeed() {
+  if (unsubscribePosts) unsubscribePosts();
+  $("feedStatus").textContent = "Loading posts...";
+  const postsQuery = query(collection(db,"posts"),orderBy("createdAt","desc"));
+  unsubscribePosts = onSnapshot(postsQuery, snapshot => {
+    allPosts = snapshot.docs.map(item => ({id:item.id,...item.data()}));
+    renderPosts();
+    $("feedStatus").textContent = allPosts.length
+      ? allPosts.length + " post(s)" : "No posts yet. Be the first to publish!";
+  }, error => {
+    $("feedStatus").textContent = "Could not load posts: " + error.code;
   });
 }
 
-document.querySelectorAll(".bottom-nav button").forEach(button => {
-  button.addEventListener("click", () => {
-    const page = button.dataset.page;
-    if (page === "home") showPage("home");
-    else if (page === "discover") {
-      showPage("discover");
-      videoSearch.focus();
-    } else showPage(page);
-  });
-});
+function renderPosts() {
+  const container = $("posts");
+  container.replaceChildren();
 
-document.getElementById("searchToggle").addEventListener("click", () => {
-  showPage("discover");
-  searchBox.hidden = false;
-  videoSearch.focus();
-});
-
-document.getElementById("profileButton").addEventListener("click", () => {
-  showPage("account");
-});
-
-document.getElementById("backToFeed").addEventListener("click", () => {
-  showPage("home");
-});
-
-/* CATEGORY FILTER AND SEARCH */
-document.getElementById("categories").addEventListener("click", event => {
-  const button = event.target.closest("button[data-category]");
-  if (!button) return;
-
-  document.querySelectorAll("#categories button").forEach(item => {
-    item.classList.toggle("active", item === button);
-  });
-  filterVideos();
-});
-
-function filterVideos() {
-  const active = document.querySelector("#categories .active");
-  const category = active ? active.dataset.category : "All";
-  const query = videoSearch.value.trim().toLowerCase();
-  let count = 0;
-
-  document.querySelectorAll(".video-card").forEach(card => {
-    const matchesCategory = category === "All" || card.dataset.category === category;
-    const matchesSearch = (card.dataset.search + " " + card.innerText).toLowerCase().includes(query);
-    card.hidden = !(matchesCategory && matchesSearch);
-    if (!card.hidden) count++;
+  const visiblePosts = allPosts.filter(post => {
+    if (activeFilter === "video") return !!post.videoUrl;
+    if (activeFilter === "text") return !post.videoUrl;
+    return true;
   });
 
-  document.getElementById("noVideos").hidden = count > 0;
-}
+  for (const post of visiblePosts) {
+    const card = document.createElement("article");
+    card.className = "post";
 
-videoSearch.addEventListener("input", filterVideos);
+    const author = document.createElement("strong");
+    author.className = "blue";
+    author.textContent = post.author || "RallyXmon Creator";
+    card.append(author);
 
-/* LIKE, COMMENT, FOLLOW AND SHARE */
-videoList.addEventListener("click", async event => {
-  const button = event.target.closest("button");
-  if (!button) return;
+    const date = document.createElement("p");
+    date.className = "small";
+    date.textContent = post.createdAt?.toDate
+      ? post.createdAt.toDate().toLocaleString() : "Just posted";
+    card.append(date);
 
-  if (button.classList.contains("like-btn")) {
-    const liked = button.classList.toggle("selected");
-    button.textContent = liked ? "♥ Liked" : "♡ Like";
-  }
-
-  if (button.classList.contains("follow-btn")) {
-    const following = button.classList.toggle("selected");
-    button.textContent = following ? "✓ Following" : "+ Follow";
-  }
-
-  if (button.classList.contains("comment-btn")) {
-    const comment = prompt("Write a comment:");
-    if (comment && comment.trim()) {
-      const item = document.createElement("p");
-      item.textContent = "Your comment: " + comment.trim();
-      item.style.cssText = "color:#75e39a;padding:10px;font-size:13px";
-      button.closest(".video-card").appendChild(item);
+    if (post.text) {
+      const body = document.createElement("div");
+      body.className = "post-text";
+      body.textContent = post.text;
+      card.append(body);
     }
-  }
 
-  if (button.classList.contains("share-btn")) {
-    const title = button.closest(".video-card").querySelector("h3").textContent;
-    try {
-      if (navigator.share) {
-        await navigator.share({
-          title,
-          text: "Check out this video on RallyXmon!"
-        });
-      } else {
-        prompt("Copy this video title to share:", title);
-      }
-    } catch (error) {
-      // The user may cancel sharing.
+    if (post.videoUrl) {
+      const video = document.createElement("video");
+      video.src = post.videoUrl;
+      video.controls = true;
+      video.playsInline = true;
+      video.preload = "metadata";
+      card.append(video);
     }
-  }
-});
 
-/* SAMPLE SHORTS PREVIEW */
-document.querySelectorAll(".short-card").forEach(button => {
-  button.addEventListener("click", () => {
-    alert(button.dataset.short + "\nThis is a sample. Real Shorts playback comes later.");
+    // Only show the delete button for the post's owner.
+    if (currentUser && post.uid === currentUser.uid) {
+      const del = document.createElement("button");
+      del.className = "secondary";
+      del.textContent = "Delete post";
+      del.style.marginTop = "12px";
+      del.addEventListener("click", async () => {
+        if (!confirm("Delete this post permanently?")) return;
+        del.disabled = true;
+        try {
+          // The Firestore rule must also enforce ownership.
+          await deleteDoc(doc(db,"posts",post.id));
+          if (post.storagePath) {
+            try {
+              await deleteObject(ref(storage,post.storagePath));
+            } catch (error) {
+              console.warn("Post deleted; video cleanup may need attention.",error);
+            }
+          }
+          message("Post deleted.");
+        } catch (error) {
+          del.disabled = false;
+          message("Could not delete post: " + error.code,true);
+        }
+      });
+      card.append(del);
+    }
+    container.append(card);
+  }
+}
+
+document.querySelectorAll(".filter").forEach(button => {
+  button.addEventListener("click",() => {
+    activeFilter = button.dataset.filter;
+    renderPosts();
   });
-});
-
-/* LOCAL VIDEO PREVIEW — NOT AN ONLINE UPLOAD */
-document.getElementById("postVideo").addEventListener("click", () => {
-  const file = document.getElementById("videoFile").files[0];
-  const title = document.getElementById("newVideoTitle").value.trim();
-  const category = document.getElementById("newVideoCategory").value;
-  const uploadMessage = document.getElementById("uploadMessage");
-  const preview = document.getElementById("videoPreview");
-
-  if (!file || !title) {
-    uploadMessage.textContent = "Choose a video and enter a title first.";
-    return;
-  }
-
-  if (!file.type.startsWith("video/")) {
-    uploadMessage.textContent = "Please choose a video file.";
-    return;
-  }
-
-  if (preview.dataset.objectUrl) {
-    URL.revokeObjectURL(preview.dataset.objectUrl);
-  }
-
-  const url = URL.createObjectURL(file);
-  preview.src = url;
-  preview.dataset.objectUrl = url;
-  preview.hidden = false;
-  uploadMessage.textContent =
-    "Preview ready. This video has NOT been published online.";
-
-  let card = document.getElementById("localPreviewCard");
-  if (!card) {
-    card = document.createElement("article");
-    card.id = "localPreviewCard";
-    card.className = "video-card";
-    videoList.prepend(card);
-  }
-
-  const player = document.createElement("video");
-  player.className = "video-thumb";
-  player.src = url;
-  player.controls = true;
-  player.style.height = "auto";
-
-  const info = document.createElement("div");
-  info.className = "video-info";
-
-  const avatar = document.createElement("div");
-  avatar.className = "creator-avatar";
-  avatar.textContent = "R";
-
-  const details = document.createElement("div");
-  details.className = "video-details";
-
-  const heading = document.createElement("h3");
-  heading.textContent = title;
-
-  const creator = document.createElement("p");
-  creator.textContent = "Your preview · " + category;
-
-  const note = document.createElement("p");
-  note.textContent = "Local preview only";
-
-  details.append(heading, creator, note);
-  info.append(avatar, details);
-  card.replaceChildren(player, info);
-  card.dataset.category = category;
-  card.dataset.search = (title + " " + category).toLowerCase();
-
-  showPage("home");
-  filterVideos();
 });
 </script>
 </body>
-     </html>
- 
+  </html>
+      
