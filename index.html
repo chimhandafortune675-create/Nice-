@@ -1,474 +1,358 @@
-<!DOCTYPE html>  <html lang="en">  
-<head>  
-    <meta charset="UTF-8">  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <title>RallyXmon</title>  <style>  
-    * {  
-        box-sizing: border-box;  
-        margin: 0;  
-        padding: 0;  
-    }  
 
-    body {  
-        background: #0b0b0f;  
-        color: white;  
-        font-family: Arial, sans-serif;  
-    }  
-
-    header {  
-        display: flex;  
-        justify-content: space-between;  
-        align-items: center;  
-        padding: 18px 20px;  
-        border-bottom: 1px solid #222;  
-        flex-wrap: wrap;  
-        gap: 15px;  
-    }  
-
-    .logo {  
-        font-size: 27px;  
-        font-weight: bold;  
-        color: #2196f3;  
-    }  
-
-    nav {  
-        display: flex;  
-        flex-wrap: wrap;  
-        gap: 16px;  
-    }  
-
-    nav a {  
-        color: white;  
-        text-decoration: none;  
-    }  
-
-    nav a:hover {  
-        color: #2196f3;  
-    }  
-
-    .hero {  
-        text-align: center;  
-        padding: 75px 20px;  
-    }  
-
-    .hero h1 {  
-        font-size: clamp(32px, 7vw, 48px);  
-        margin-bottom: 18px;  
-    }  
-
-    .hero span {  
-        color: #2196f3;  
-    }  
-
-    .hero p {  
-        color: #aaa;  
-        font-size: 17px;  
-        line-height: 1.7;  
-        max-width: 650px;  
-        margin: auto;  
-    }  
-
-    button, .primary-button {  
-        border: none;  
-        display: inline-block;  
-        margin-top: 18px;  
-        padding: 13px 24px;  
-        background: #2196f3;  
-        color: white;  
-        text-decoration: none;  
-        border-radius: 8px;  
-        font-size: 16px;  
-        font-weight: bold;  
-        cursor: pointer;  
-    }  
-
-    button:hover, .primary-button:hover {  
-        background: #1976d2;  
-    }  
-
-    .secondary-button {  
-        background: #252530;  
-    }  
-
-    .secondary-button:hover {  
-        background: #383847;  
-    }  
-
-    .account {  
-        display: none;  
-        max-width: 430px;  
-        margin: 0 auto 40px;  
-        padding: 25px;  
-        background: #15151c;  
-        border: 1px solid #292936;  
-        border-radius: 15px;  
-    }  
-
-    .account h2 {  
-        color: #2196f3;  
-        margin-bottom: 12px;  
-    }  
-
-    .account p {  
-        color: #aaa;  
-        line-height: 1.5;  
-        margin-bottom: 12px;  
-    }  
-
-    .account input {  
-        display: block;  
-        width: 100%;  
-        margin: 12px 0;  
-        padding: 14px;  
-        border: 1px solid #333;  
-        border-radius: 8px;  
-        background: #0b0b0f;  
-        color: white;  
-        font-size: 16px;  
-    }  
-
-    .account button {  
-        width: 100%;  
-        margin-top: 10px;  
-    }  
-
-    .switch-mode {  
-        color: #2196f3;  
-        cursor: pointer;  
-        text-decoration: underline;  
-    }  
-
-    #message {  
-        overflow-wrap: anywhere;  
-        font-size: 14px;  
-        margin-top: 15px;  
-    }  
-
-    .sections {  
-        display: grid;  
-        grid-template-columns: repeat(  
-            auto-fit, minmax(220px, 1fr)  
-        );  
-        gap: 20px;  
-        padding: 25px;  
-    }  
-
-    .card {  
-        background: #15151c;  
-        padding: 25px;  
-        border-radius: 15px;  
-        border: 1px solid #24242d;  
-    }  
-
-    .card h2 {  
-        margin-bottom: 12px;  
-        color: #2196f3;  
-    }  
-
-    .card p {  
-        color: #aaa;  
-        line-height: 1.5;  
-    }  
-
-    footer {  
-        text-align: center;  
-        padding: 30px;  
-        color: #666;  
-        border-top: 1px solid #222;  
-        margin-top: 35px;  
-    }  
-
-    [hidden] {  
-        display: none !important;  
-    }  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RallyXmon</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0b0b0f;color:#fff;font-family:Arial,sans-serif}
+button,input{font:inherit}
+button{cursor:pointer;border:0;border-radius:9px;padding:12px;background:#2196f3;color:white;font-weight:bold}
+input{width:100%;padding:13px;margin:7px 0;background:#191922;color:white;border:1px solid #333;border-radius:9px}
+header{padding:16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #24242d;position:sticky;top:0;background:#0b0b0f;z-index:2}
+.logo{font-size:23px;font-weight:bold;color:#2196f3}
+main{max-width:650px;margin:auto;padding:16px}
+.panel,.post{background:#14141c;border:1px solid #282833;border-radius:14px;padding:16px;margin-bottom:16px}
+h2{font-size:21px}
+.muted{color:#aaa;font-size:13px}
+.full{width:100%;margin-top:8px}
+.secondary{background:#292936}
+video{display:block;width:100%;max-height:65vh;object-fit:contain;background:#000;border-radius:10px;margin-top:12px}
+.post-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.post-head button{padding:8px;background:#30232a;color:#ff9b9b}
+nav{position:sticky;bottom:0;background:#101018;border-top:1px solid #292936;display:flex;justify-content:space-around;padding:12px}
+nav button{background:transparent;color:#ccc;padding:9px}
+nav button.active{color:#2196f3}
+#feed{padding-bottom:24px}
+#message{font-size:13px;color:#90caf9;margin:10px 0;overflow-wrap:anywhere}
+.hidden{display:none!important}
 </style>
+</head>
+<body>
 
-</head>  <body>  <header>  
-    <div class="logo">RallyXmon</div>  <nav>  
-    <a href="#">Home</a>  
-    <a href="#discover">Discover</a>  
-    <a href="#account" id="createLink">Create Account</a>  
+<header>
+  <div class="logo">RallyXmon</div>
+  <button id="logout" class="secondary hidden">Sign out</button>
+</header>
+
+<main>
+  <section id="welcome">
+    <div class="panel">
+      <h2>Welcome to RallyXmon 💙</h2>
+      <p class="muted">Discover videos. Share your creativity. Grow together.</p>
+    </div>
+    <div class="panel">
+      <h2 id="authTitle">Sign in</h2>
+      <input id="email" type="email" placeholder="Email address" autocomplete="email">
+      <input id="password" type="password" placeholder="Password" autocomplete="current-password">
+      <button id="emailBtn" class="full">Sign in</button>
+      <button id="googleBtn" class="full">Continue with Google</button>
+      <button id="switchBtn" class="full secondary">Create an account</button>
+      <p id="message"></p>
+    </div>
+  </section>
+
+  <section id="app" class="hidden">
+    <div class="panel">
+      <h2>🎬 Your video community</h2>
+      <p class="muted">Welcome, <span id="username"></span></p>
+      <button class="full" id="showCreate">＋ Create a post</button>
+    </div>
+
+    <section id="create" class="panel hidden">
+      <h2>Publish a video</h2>
+      <input id="caption" maxlength="300" placeholder="Write a caption...">
+      <input id="videoFile" type="file" accept="video/*">
+      <p class="muted">Choose a video from your phone. Large uploads use mobile data.</p>
+      <button id="uploadBtn" class="full">Publish video</button>
+      <p id="uploadMessage" class="muted"></p>
+    </section>
+
+    <div id="feed"></div>
+  </section>
+</main>
+
+<nav id="bottomNav" class="hidden">
+  <button class="active" id="homeBtn">⌂ Home</button>
+  <button id="discoverBtn">◎ Discover</button>
+  <button id="createNav">＋ Create</button>
 </nav>
 
-</header>  <section class="hero">  
-    <h1>Welcome to <span>RallyXmon</span></h1>  <p>  
-    Discover new content, share your creativity,  
-    build your audience, sell products and unlock  
-    new opportunities.  
-</p>  
+<script type="module">
+import { initializeApp }
+  from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
 
-<button id="getStarted">Get Started</button>
+import {
+  getAuth, GoogleAuthProvider, signInWithRedirect,
+  getRedirectResult, onAuthStateChanged,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword, signOut
+} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
 
-</section>  <section class="account" id="account">  
-    <h2 id="formTitle">Create your account</h2>  <p id="formDescription">  
-    Join RallyXmon and get started.  
-</p>  
+import {
+  getFirestore, collection, addDoc, deleteDoc, doc,
+  query, orderBy, onSnapshot, serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
-<div id="authForms">  
-    <form id="emailForm">  
-        <input  
-            type="email"  
-            id="email"  
-            placeholder="Email address"  
-            autocomplete="email"  
-            required  
-        >  
+import {
+  getStorage, ref, uploadBytesResumable,
+  getDownloadURL, deleteObject
+} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-storage.js";
 
-        <input  
-            type="password"  
-            id="password"  
-            placeholder="Password (at least 6 characters)"  
-            autocomplete="new-password"  
-            minlength="6"  
-            required  
-        >  
+const firebaseConfig = {
+  apiKey: "AIzaSyAfEauorhanldytrbCMchmwUf7PMv4_TnA",
+  authDomain: "rallyxmon-58dfd.firebaseapp.com",
+  projectId: "rallyxmon-58dfd",
+  storageBucket: "rallyxmon-58dfd.firebasestorage.app",
+  messagingSenderId: "408218925377",
+  appId: "1:408218925377:web:6a4dbda25446412aaf89c0",
+  measurementId: "G-TGGVZVG4HP"
+};
 
-        <button type="submit" id="emailSubmit">  
-            Create Account  
-        </button>  
-    </form>  
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const storage = getStorage(app);
+const google = new GoogleAuthProvider();
 
-    <button type="button" id="googleButton"  
-            class="secondary-button">  
-        Continue with Google  
-    </button>  
+const $ = id => document.getElementById(id);
+let createMode = false;
+let feedUnsubscribe = null;
+let signupMode = false;
+let showingDiscover = false;
 
-    <p style="margin-top:18px">  
-        <span id="switchText">Already have an account?</span>  
-        <span class="switch-mode" id="switchMode">  
-            Sign in  
-        </span>  
-    </p>  
-</div>  
+function message(text) {
+  $("message").textContent = text;
+}
 
-<div id="signedIn" hidden>  
-    <p id="userDetails"></p>  
-    <p>  
-        You're signed in. Creator profiles and saved  
-        account settings will be connected next.  
-    </p>  
-    <button type="button" id="signOut"  
-            class="secondary-button">  
-        Sign Out  
-    </button>  
-</div>  
+function showCreate(show) {
+  $("create").classList.toggle("hidden", !show);
+  if (show) $("caption").focus();
+}
 
-<p id="message" role="status" aria-live="polite"></p>
+$("switchBtn").onclick = () => {
+  signupMode = !signupMode;
+  $("authTitle").textContent = signupMode ? "Create your account" : "Sign in";
+  $("emailBtn").textContent = signupMode ? "Create account" : "Sign in";
+  $("switchBtn").textContent = signupMode ? "Back to sign in" : "Create an account";
+  $("password").autocomplete = signupMode ? "new-password" : "current-password";
+  message("");
+};
 
-</section>  <section class="sections">  
-    <div class="card" id="discover">  
-        <h2>Discover</h2>  
-        <p>  
-            Find creators, videos and fresh content  
-            from around the platform.  
-        </p>  
-    </div>  <div class="card" id="create">  
-    <h2>Create</h2>  
-    <p>  
-        Sign up to begin your journey as a creator.  
-    </p>  
-</div>  
+$("emailBtn").onclick = async () => {
+  const email = $("email").value.trim();
+  const password = $("password").value;
+  if (!email || !password) {
+    message("Enter your email and password.");
+    return;
+  }
+  $("emailBtn").disabled = true;
+  message("Please wait...");
+  try {
+    if (signupMode) {
+      await createUserWithEmailAndPassword(auth, email, password);
+    } else {
+      await signInWithEmailAndPassword(auth, email, password);
+    }
+  } catch (e) {
+    message(e.code + ": " + e.message);
+  } finally {
+    $("emailBtn").disabled = false;
+  }
+};
 
-<div class="card">  
-    <h2>Earn</h2>  
-    <p>  
-        Build your audience and explore future  
-        earning opportunities.  
-    </p>  
-</div>  
+$("googleBtn").onclick = async () => {
+  try {
+    message("Opening Google sign-in...");
+    await signInWithRedirect(auth, google);
+  } catch (e) {
+    message(e.code + ": " + e.message);
+  }
+};
 
-<div class="card">  
-    <h2>Marketplace</h2>  
-    <p>  
-        Discover opportunities to showcase and  
-        sell products.  
-    </p>  
-</div>
+try {
+  await getRedirectResult(auth);
+} catch (e) {
+  message(e.code + ": " + e.message);
+}
 
-</section>  <footer>  
-    © 2026 RallyXmon. All rights reserved.  
-</footer>  <script type="module">  
-    import { initializeApp }  
-        from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";  
-  
-    import {  
-        getAuth,  
-        createUserWithEmailAndPassword,  
-        signInWithEmailAndPassword,  
-        GoogleAuthProvider,  
-        signInWithRedirect,  
-        getRedirectResult,  
-        onAuthStateChanged,  
-        signOut  
-    } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";  
-  
-    const firebaseConfig = {  
-        apiKey: "AIzaSyAfEauorhanldytrbCMchmwUf7PMv4_TnA",  
-        authDomain: "rallyxmon-58dfd.firebaseapp.com",  
-        projectId: "rallyxmon-58dfd",  
-        storageBucket: "rallyxmon-58dfd.firebasestorage.app",  
-        messagingSenderId: "408218925377",  
-        appId: "1:408218925377:web:6a4dbda25446412aaf89c0",  
-        measurementId: "G-TGGVZVG4HP"  
-    };  
-  
-    const app = initializeApp(firebaseConfig);  
-    const auth = getAuth(app);  
-    const googleProvider = new GoogleAuthProvider();  
-  
-    const account = document.getElementById("account");  
-    const emailForm = document.getElementById("emailForm");  
-    const emailInput = document.getElementById("email");  
-    const passwordInput = document.getElementById("password");  
-    const message = document.getElementById("message");  
-    const formTitle = document.getElementById("formTitle");  
-    const formDescription = document.getElementById("formDescription");  
-    const emailSubmit = document.getElementById("emailSubmit");  
-    const switchMode = document.getElementById("switchMode");  
-    const switchText = document.getElementById("switchText");  
-    const authForms = document.getElementById("authForms");  
-    const signedIn = document.getElementById("signedIn");  
-    const userDetails = document.getElementById("userDetails");  
-  
-    let mode = "signup";  
-  
-    function showMessage(text, isError = false) {  
-        message.textContent = text;  
-        message.style.color = isError ? "#ff7777" : "#75e39a";  
-    }  
-  
-    function openAccount() {  
-        account.style.display = "block";  
-        account.scrollIntoView({ behavior: "smooth" });  
-    }  
-  
-    document.getElementById("getStarted").addEventListener(  
-        "click", openAccount  
-    );  
-  
-    document.getElementById("createLink").addEventListener(  
-        "click", openAccount  
-    );  
-  
-    switchMode.addEventListener("click", () => {  
-        mode = mode === "signup" ? "signin" : "signup";  
-  
-        formTitle.textContent = mode === "signup"  
-            ? "Create your account" : "Welcome back";  
-  
-        formDescription.textContent = mode === "signup"  
-            ? "Join RallyXmon and get started."  
-            : "Sign in to your RallyXmon account.";  
-  
-        emailSubmit.textContent = mode === "signup"  
-            ? "Create Account" : "Sign In";  
-  
-        passwordInput.autocomplete = mode === "signup"  
-            ? "new-password" : "current-password";  
-  
-        switchText.textContent = mode === "signup"  
-            ? "Already have an account?" : "New to RallyXmon?";  
-  
-        switchMode.textContent = mode === "signup"  
-            ? "Sign in" : "Create account";  
-  
-        showMessage("");  
-    });  
-  
-    emailForm.addEventListener("submit", async (event) => {  
-        event.preventDefault();  
-        showMessage("Please wait...");  
-  
-        const email = emailInput.value.trim();  
-        const password = passwordInput.value;  
-  
-        try {  
-            if (mode === "signup") {  
-                await createUserWithEmailAndPassword(  
-                    auth, email, password  
-                );  
-            } else {  
-                await signInWithEmailAndPassword(  
-                    auth, email, password  
-                );  
-            }  
-        } catch (error) {  
-            const messages = {  
-                "auth/email-already-in-use":  
-                    "This email already has an account. Try signing in.",  
-                "auth/invalid-email":  
-                    "Please enter a valid email address.",  
-                "auth/weak-password":  
-                    "Choose a stronger password with at least 6 characters.",  
-                "auth/invalid-credential":  
-                    "Email or password is incorrect.",  
-                "auth/network-request-failed":  
-                    "Connection failed. Check your internet and try again.",  
-                "auth/too-many-requests":  
-                    "Too many attempts. Please try again later."  
-            };  
-  
-            showMessage(  
-                messages[error.code] ||  
-                "Could not complete the request. Error: " +  
-                error.code,  
-                true  
-            );  
-        }  
-    });  
-  
-    document.getElementById("googleButton").addEventListener(  
-        "click", async () => {  
-            try {  
-                showMessage("Opening Google sign-in...");  
-                await signInWithRedirect(auth, googleProvider);  
-            } catch (error) {  
-                showMessage(  
-                    "Google sign-in failed: " + error.code,  
-                    true  
-                );  
-            }  
-        }  
-    );  
-  
-    try {  
-        await getRedirectResult(auth);  
-    } catch (error) {  
-        showMessage(  
-            "Google sign-in issue: " + error.code,  
-            true  
-        );  
-    }  
-  
-    onAuthStateChanged(auth, (user) => {  
-        if (user) {  
-            authForms.hidden = true;  
-            signedIn.hidden = false;  
-            formTitle.textContent = "Your RallyXmon Account";  
-            formDescription.textContent = "You're signed in.";  
-            userDetails.textContent =  
-                "Signed in as: " + (user.email || user.displayName || "User");  
-            showMessage("Sign-in successful.");  
-        } else {  
-            authForms.hidden = false;  
-            signedIn.hidden = true;  
-            formTitle.textContent = mode === "signup"  
-                ? "Create your account" : "Welcome back";  
-            formDescription.textContent = mode === "signup"  
-                ? "Join RallyXmon and get started."  
-                : "Sign in to your RallyXmon account.";  
-        }  
-    });  
-  
-    document.getElementById("signOut").addEventListener(  
-        "click", async () => {  
-            try {  
-                await signOut(auth);  
-                showMessage("You've signed out.");  
-            } catch (error) {  
-                showMessage("Sign-out failed: " + error.code, true);  
-            }  
-        }  
-    );  
-</script>  </body>  
-    </html>  
+$("logout").onclick = () => signOut(auth);
+
+onAuthStateChanged(auth, user => {
+  const loggedIn = !!user;
+  $("welcome").classList.toggle("hidden", loggedIn);
+  $("app").classList.toggle("hidden", !loggedIn);
+  $("logout").classList.toggle("hidden", !loggedIn);
+  $("bottomNav").classList.toggle("hidden", !loggedIn);
+
+  if (user) {
+    $("username").textContent = user.displayName || user.email || "Creator";
+    startFeed();
+  } else {
+    if (feedUnsubscribe) feedUnsubscribe();
+    feedUnsubscribe = null;
+    $("feed").replaceChildren();
+    showCreate(false);
+  }
+});
+
+$("showCreate").onclick = () => showCreate(true);
+$("createNav").onclick = () => showCreate(true);
+$("homeBtn").onclick = () => {
+  showingDiscover = false;
+  $("homeBtn").classList.add("active");
+  $("discoverBtn").classList.remove("active");
+  $("feed").scrollIntoView({behavior:"smooth"});
+};
+$("discoverBtn").onclick = () => {
+  showingDiscover = true;
+  $("discoverBtn").classList.add("active");
+  $("homeBtn").classList.remove("active");
+  $("feed").scrollIntoView({behavior:"smooth"});
+};
+
+function startFeed() {
+  if (feedUnsubscribe) feedUnsubscribe();
+
+  const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
+
+  feedUnsubscribe = onSnapshot(q, snapshot => {
+    const feed = $("feed");
+    feed.replaceChildren();
+
+    if (snapshot.empty) {
+      const empty = document.createElement("div");
+      empty.className = "panel";
+      empty.textContent = "No videos yet. Be the first to publish!";
+      feed.append(empty);
+      return;
+    }
+
+    snapshot.forEach(item => {
+      const post = item.data();
+      const card = document.createElement("article");
+      card.className = "post";
+
+      const head = document.createElement("div");
+      head.className = "post-head";
+      const creator = document.createElement("strong");
+      creator.textContent = post.creatorName || "RallyXmon creator";
+      head.append(creator);
+
+      if (auth.currentUser && post.uid === auth.currentUser.uid) {
+        const del = document.createElement("button");
+        del.textContent = "Delete";
+        del.onclick = async () => {
+          if (!confirm("Delete your post?")) return;
+          del.disabled = true;
+          try {
+            await deleteDoc(doc(db, "posts", item.id));
+            if (post.storagePath) {
+              try {
+                await deleteObject(ref(storage, post.storagePath));
+              } catch (e) {
+                console.warn("Storage cleanup:", e);
+              }
+            }
+          } catch (e) {
+            alert("Could not delete: " + e.message);
+            del.disabled = false;
+          }
+        };
+        head.append(del);
+      }
+
+      const caption = document.createElement("p");
+      caption.textContent = post.caption || "";
+
+      card.append(head, caption);
+
+      if (post.videoUrl) {
+        const video = document.createElement("video");
+        video.src = post.videoUrl;
+        video.controls = true;
+        video.playsInline = true;
+        video.preload = "metadata";
+        card.append(video);
+      }
+
+      const info = document.createElement("p");
+      info.className = "muted";
+      info.textContent = "RallyXmon • Video post";
+      card.append(info);
+      feed.append(card);
+    });
+  }, error => {
+    $("feed").textContent =
+      "Feed error: " + error.message +
+      " — Check your Firestore database and security rules.";
+  });
+}
+
+$("uploadBtn").onclick = async () => {
+  const user = auth.currentUser;
+  const file = $("videoFile").files[0];
+  const caption = $("caption").value.trim();
+
+  if (!user) return alert("Please sign in first.");
+  if (!file) return alert("Choose a video first.");
+  if (!file.type.startsWith("video/")) {
+    return alert("Please select a video file.");
+  }
+
+  const btn = $("uploadBtn");
+  const status = $("uploadMessage");
+  btn.disabled = true;
+
+  try {
+    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+    const path = `videos/${user.uid}/${Date.now()}_${safeName}`;
+    const storageRef = ref(storage, path);
+    const task = uploadBytesResumable(storageRef, file);
+
+    const url = await new Promise((resolve, reject) => {
+      task.on("state_changed",
+        snap => {
+          const percent = Math.round(
+            snap.bytesTransferred / snap.totalBytes * 100
+          );
+          status.textContent = `Uploading: ${percent}%`;
+        },
+        reject,
+        async () => {
+          try {
+            resolve(await getDownloadURL(task.snapshot.ref));
+          } catch (e) {
+            reject(e);
+          }
+        }
+      );
+    });
+
+    await addDoc(collection(db, "posts"), {
+      uid: user.uid,
+      creatorName: user.displayName || user.email || "Creator",
+      caption,
+      videoUrl: url,
+      storagePath: path,
+      createdAt: serverTimestamp()
+    });
+
+    $("caption").value = "";
+    $("videoFile").value = "";
+    status.textContent = "Video published successfully!";
+    showCreate(false);
+  } catch (e) {
+    status.textContent = e.code
+      ? e.code + ": " + e.message
+      : e.message;
+  } finally {
+    btn.disabled = false;
+  }
+};
+</script>
+</body>
+    </html>
+                                                              
