@@ -5,354 +5,1155 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RallyXmon</title>
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#0b0b0f;color:#fff;font-family:Arial,sans-serif}
-button,input{font:inherit}
-button{cursor:pointer;border:0;border-radius:9px;padding:12px;background:#2196f3;color:white;font-weight:bold}
-input{width:100%;padding:13px;margin:7px 0;background:#191922;color:white;border:1px solid #333;border-radius:9px}
-header{padding:16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #24242d;position:sticky;top:0;background:#0b0b0f;z-index:2}
-.logo{font-size:23px;font-weight:bold;color:#2196f3}
-main{max-width:650px;margin:auto;padding:16px}
-.panel,.post{background:#14141c;border:1px solid #282833;border-radius:14px;padding:16px;margin-bottom:16px}
-h2{font-size:21px}
-.muted{color:#aaa;font-size:13px}
-.full{width:100%;margin-top:8px}
-.secondary{background:#292936}
-video{display:block;width:100%;max-height:65vh;object-fit:contain;background:#000;border-radius:10px;margin-top:12px}
-.post-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.post-head button{padding:8px;background:#30232a;color:#ff9b9b}
-nav{position:sticky;bottom:0;background:#101018;border-top:1px solid #292936;display:flex;justify-content:space-around;padding:12px}
-nav button{background:transparent;color:#ccc;padding:9px}
-nav button.active{color:#2196f3}
-#feed{padding-bottom:24px}
-#message{font-size:13px;color:#90caf9;margin:10px 0;overflow-wrap:anywhere}
-.hidden{display:none!important}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #0b0b0f;
+  --panel: #17171f;
+  --line: #292933;
+  --blue: #2196f3;
+  --muted: #aaa;
+}
+
+body {
+  background: var(--bg);
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+button, input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: 0;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #0b0b0ff5;
+  border-bottom: 1px solid var(--line);
+  padding: 13px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--blue);
+  display: grid;
+  place-items: center;
+  font-size: 23px;
+}
+
+.icon-btn {
+  background: #22222b;
+  color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+}
+
+.primary, .secondary {
+  padding: 12px 18px;
+  border-radius: 9px;
+  font-weight: bold;
+}
+
+.primary {
+  background: var(--blue);
+  color: white;
+}
+
+.primary:hover {
+  background: #1976d2;
+}
+
+.secondary {
+  background: #252530;
+  color: white;
+  border: 1px solid #383845;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+main {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px 16px 95px;
+}
+
+.welcome {
+  max-width: 680px;
+  margin: 55px auto;
+  text-align: center;
+}
+
+.welcome h1 {
+  font-size: clamp(30px, 6vw, 46px);
+  margin-bottom: 15px;
+}
+
+.blue {
+  color: var(--blue);
+}
+
+.welcome p, .muted {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.welcome-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  max-width: 520px;
+  margin: 28px auto;
+}
+
+.feature {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px;
+  text-align: left;
+}
+
+.feature strong {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--blue);
+}
+
+.account {
+  max-width: 430px;
+  margin: 30px auto;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.account h2 {
+  margin-bottom: 10px;
+}
+
+.account p {
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+
+.account input {
+  width: 100%;
+  padding: 14px;
+  margin: 8px 0 14px;
+  border: 1px solid #383845;
+  background: var(--bg);
+  border-radius: 9px;
+  color: white;
+}
+
+.account button {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.link {
+  color: var(--blue);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+#message {
+  font-size: 14px;
+  overflow-wrap: anywhere;
+  margin-top: 13px;
+}
+ 
+.feed-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin: 25px 0 16px;
+}
+
+.feed-heading h2 {
+  font-size: 22px;
+}
+
+.search {
+  width: 100%;
+  padding: 13px;
+  margin: 14px 0;
+  background: var(--panel);
+  color: white;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+
+.categories {
+  display: flex;
+  gap: 9px;
+  overflow-x: auto;
+  padding: 5px 0 14px;
+}
+
+.chip {
+  flex-shrink: 0;
+  background: #22222b;
+  color: white;
+  padding: 9px 15px;
+  border-radius: 20px;
+}
+
+.chip.active {
+  background: white;
+  color: #111;
+}
+
+.shorts-row {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+}
+
+.short-card {
+  flex: 0 0 145px;
+  min-width: 145px;
+  height: 235px;
+  background: #20202a;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+.short-card video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.short-label {
+  position: absolute;
+  left: 9px;
+  bottom: 10px;
+  right: 9px;
+  padding: 8px;
+  border-radius: 7px;
+  background: #0009;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 12px;
+}
+
+.video-card {
+  min-width: 0;
+  overflow: hidden;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.video-frame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: block;
+  object-fit: cover;
+  background: #20202a;
+}
+
+.video-info {
+  padding: 11px;
+}
+
+.video-title {
+  font-size: 15px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  margin-bottom: 7px;
+}
+
+.video-meta {
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.video-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.small-btn {
+  background: #292933;
+  color: white;
+  border-radius: 7px;
+  padding: 8px 10px;
+  font-size: 12px;
+}
+
+.upload-box {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px;
+  margin: 18px 0;
+}
+
+.upload-box input,
+.upload-box select {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin: 12px 0;
+  background: var(--bg);
+  border: 1px solid #383845;
+  color: white;
+  border-radius: 8px;
+}
+
+.upload-box input[type="file"] {
+  font-size: 13px;
+}
+
+.upload-box button {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.empty {
+  text-align: center;
+  padding: 35px 15px;
+  color: var(--muted);
+  background: var(--panel);
+  border-radius: 12px;
+  line-height: 1.6;
+}
+
+.bottom-nav {
+  position: fixed;
+  z-index: 20;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #111116f7;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 4px calc(10px + env(safe-area-inset-bottom));
+}
+
+.nav-btn {
+  background: transparent;
+  color: #aaa;
+  min-width: 52px;
+  padding: 5px;
+  font-size: 11px;
+}
+
+.nav-btn span {
+  display: block;
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+
+.nav-btn.active {
+  color: var(--blue);
+}
+
+footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  padding: 20px 0;
+}
+
+@media (min-width: 750px) {
+  .video-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .short-card {
+    flex-basis: 165px;
+    height: 260px;
+  }
+}
+
+@media (max-width: 380px) {
+  main {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .video-grid {
+    gap: 10px 8px;
+  }
+
+  .video-info {
+    padding: 8px;
+  }
+
+  .video-title {
+    font-size: 13px;
+  }
+
+  .header-actions .secondary {
+    display: none;
+  }
+}
 </style>
 </head>
-<body>
 
+<body>
 <header>
-  <div class="logo">RallyXmon</div>
-  <button id="logout" class="secondary hidden">Sign out</button>
+  <div class="brand">
+    <div class="logo">R</div>
+    <span>Rally<span class="blue">Xmon</span></span>
+  </div>
+
+  <div class="header-actions">
+    <button class="secondary" id="headerSignIn">Sign in</button>
+    <button class="primary" id="headerGetStarted">Get started</button>
+    <button class="icon-btn" id="headerSearch" aria-label="Search">⌕</button>
+  </div>
 </header>
 
 <main>
-  <section id="welcome">
-    <div class="panel">
-      <h2>Welcome to RallyXmon 💙</h2>
-      <p class="muted">Discover videos. Share your creativity. Grow together.</p>
-    </div>
-    <div class="panel">
-      <h2 id="authTitle">Sign in</h2>
-      <input id="email" type="email" placeholder="Email address" autocomplete="email">
-      <input id="password" type="password" placeholder="Password" autocomplete="current-password">
-      <button id="emailBtn" class="full">Sign in</button>
-      <button id="googleBtn" class="full">Continue with Google</button>
-      <button id="switchBtn" class="full secondary">Create an account</button>
-      <p id="message"></p>
+  <section id="welcomePage">
+    <div class="welcome">
+      <h1>Your world. Your videos. <span class="blue">RallyXmon.</span></h1>
+      <p>Discover videos, share your creativity, and connect with a growing community.</p>
+
+      <div class="welcome-actions">
+        <button class="primary" id="getStarted">Get started</button>
+        <button class="secondary" id="welcomeSignIn">Sign in</button>
+      </div>
+
+      <div class="features">
+        <div class="feature">
+          <strong>▶ Discover</strong>
+          <span class="muted">Find videos and new creators.</span>
+        </div>
+        <div class="feature">
+          <strong>＋ Create</strong>
+          <span class="muted">Share your videos with others.</span>
+        </div>
+        <div class="feature">
+          <strong>♡ Community</strong>
+          <span class="muted">Like videos and share them.</span>
+        </div>
+        <div class="feature">
+          <strong>★ Creator growth</strong>
+          <span class="muted">Build your audience over time.</span>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section id="app" class="hidden">
-    <div class="panel">
-      <h2>🎬 Your video community</h2>
-      <p class="muted">Welcome, <span id="username"></span></p>
-      <button class="full" id="showCreate">＋ Create a post</button>
+  <section id="accountPage" class="account" hidden>
+    <h2 id="accountTitle">Create your account</h2>
+    <p id="accountDescription">Join RallyXmon to discover and share videos.</p>
+
+    <form id="authForm">
+      <input id="authEmail" type="email" placeholder="Email address" autocomplete="email" required>
+      <input id="authPassword" type="password" placeholder="Password (at least 6 characters)" autocomplete="current-password" minlength="6" required>
+      <button class="primary" id="authSubmit" type="submit">Create account</button>
+    </form>
+
+    <button class="secondary" id="googleSignIn" type="button">Continue with Google</button>
+
+    <p style="margin-top:16px">
+      <span id="authSwitchText">Already have an account?</span>
+      <span class="link" id="authSwitch">Sign in</span>
+    </p>
+
+    <button class="secondary" id="backWelcome" type="button">Back</button>
+    <p id="message" role="status"></p>
+  </section>
+
+  <section id="feedPage" hidden>
+    <div class="feed-heading">
+      <div>
+        <h2>Welcome to RallyXmon</h2>
+        <p class="muted" id="userLabel">Discover something new.</p>
+      </div>
+      <button class="secondary" id="signOutButton">Sign out</button>
     </div>
 
-    <section id="create" class="panel hidden">
-      <h2>Publish a video</h2>
-      <input id="caption" maxlength="300" placeholder="Write a caption...">
-      <input id="videoFile" type="file" accept="video/*">
-      <p class="muted">Choose a video from your phone. Large uploads use mobile data.</p>
-      <button id="uploadBtn" class="full">Publish video</button>
-      <p id="uploadMessage" class="muted"></p>
-    </section>
+    <input id="searchInput" class="search" type="search" placeholder="Search videos or creators...">
 
-    <div id="feed"></div>
+    <div class="categories" id="categoryList">
+      <button class="chip active" data-category="All">All</button>
+      <button class="chip" data-category="Football">Football</button>
+      <button class="chip" data-category="Gaming">Gaming</button>
+      <button class="chip" data-category="Music">Music</button>
+      <button class="chip" data-category="Entertainment">Entertainment</button>
+      <button class="chip" data-category="Other">Other</button>
+    </div>
+
+    <div class="feed-heading">
+      <h2>Shorts</h2>
+      <span class="muted">Quick videos</span>
+    </div>
+    <div id="shortsFeed" class="shorts-row"></div>
+
+    <div class="feed-heading">
+      <h2>Videos</h2>
+      <span class="muted">From the community</span>
+    </div>
+    <div id="videoFeed" class="video-grid"></div>
+
+    <p id="feedMessage" class="muted" style="margin-top:16px"></p>
+
+    <section class="upload-box" id="uploadBox" hidden>
+      <h2>Create a post</h2>
+      <p class="muted" style="margin-top:8px">Choose a video and share it with the community.</p>
+
+      <form id="uploadForm">
+        <input id="videoTitle" type="text" maxlength="120" placeholder="Video title" required>
+        <select id="videoCategory" required>
+          <option value="Football">Football</option>
+          <option value="Gaming">Gaming</option>
+          <option value="Music">Music</option>
+          <option value="Entertainment">Entertainment</option>
+          <option value="Other">Other</option>
+        </select>
+        <select id="videoType">
+          <option value="video">Regular video</option>
+          <option value="short">Short</option>
+        </select>
+        <input id="videoFile" type="file" accept="video/*" required>
+        <p class="muted">Large videos use more mobile data and storage.</p>
+        <button class="primary" id="uploadButton" type="submit">Upload video</button>
+      </form>
+      <p id="uploadMessage" class="muted" style="margin-top:12px"></p>
+    </section>
   </section>
 </main>
 
-<nav id="bottomNav" class="hidden">
-  <button class="active" id="homeBtn">⌂ Home</button>
-  <button id="discoverBtn">◎ Discover</button>
-  <button id="createNav">＋ Create</button>
+<nav class="bottom-nav" id="bottomNav" hidden>
+  <button class="nav-btn active" data-page="home"><span>⌂</span>Home</button>
+  <button class="nav-btn" data-page="shorts"><span>▣</span>Shorts</button>
+  <button class="nav-btn" data-page="create"><span>＋</span>Create</button>
+  <button class="nav-btn" data-page="discover"><span>⌕</span>Discover</button>
+  <button class="nav-btn" data-page="you"><span>☺</span>You</button>
 </nav>
 
-<script type="module">
-import { initializeApp }
-  from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+<footer>RallyXmon · Create. Discover. Connect.</footer>
 
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
 import {
-  getAuth, GoogleAuthProvider, signInWithRedirect,
-  getRedirectResult, onAuthStateChanged,
+  getAuth,
+  onAuthStateChanged,
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword, signOut
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut
 } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
 
 import {
-  getFirestore, collection, addDoc, deleteDoc, doc,
-  query, orderBy, onSnapshot, serverTimestamp
+  getFirestore,
+  collection,
+  addDoc,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  query,
+  orderBy,
+  serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
 import {
-  getStorage, ref, uploadBytesResumable,
-  getDownloadURL, deleteObject
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject
 } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-storage.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAfEauorhanldytrbCMchmwUf7PMv4_TnA",
-  authDomain: "rallyxmon-58dfd.firebaseapp.com",
-  projectId: "rallyxmon-58dfd",
-  storageBucket: "rallyxmon-58dfd.firebasestorage.app",
-  messagingSenderId: "408218925377",
-  appId: "1:408218925377:web:6a4dbda25446412aaf89c0",
-  measurementId: "G-TGGVZVG4HP"
+  apiKey: "AIzaSyC4cLYzzcGATufTiuxKt96cBWZK_Dmv01s",
+  authDomain: "rallyxmon-new.firebaseapp.com",
+  projectId: "rallyxmon-new",
+  storageBucket: "rallyxmon-new.firebasestorage.app",
+  messagingSenderId: "155445902846",
+  appId: "1:155445902846:web:549c9e1eed7ada916694af",
+  measurementId: "G-TGVZGFQNCQ"
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
-const google = new GoogleAuthProvider();
 
-const $ = id => document.getElementById(id);
-let createMode = false;
-let feedUnsubscribe = null;
-let signupMode = false;
-let showingDiscover = false;
+const welcomePage = document.getElementById("welcomePage");
+const accountPage = document.getElementById("accountPage");
+const feedPage = document.getElementById("feedPage");
+const bottomNav = document.getElementById("bottomNav");
+const message = document.getElementById("message");
 
-function message(text) {
-  $("message").textContent = text;
+let authMode = "signup";
+let allVideos = [];
+let selectedCategory = "All";
+let currentUser = null;
+let unsubscribeVideos = null;
+let isUploading = false;
+let searchTerm = "";
+  
+function showWelcome() {
+  welcomePage.hidden = false;
+  accountPage.hidden = true;
+  feedPage.hidden = true;
+  bottomNav.hidden = true;
 }
 
-function showCreate(show) {
-  $("create").classList.toggle("hidden", !show);
-  if (show) $("caption").focus();
+function showAccount(mode = "signup") {
+  authMode = mode;
+  welcomePage.hidden = true;
+  accountPage.hidden = false;
+  feedPage.hidden = true;
+  bottomNav.hidden = true;
+
+  document.getElementById("accountTitle").textContent =
+    mode === "signup" ? "Create your account" : "Welcome back";
+
+  document.getElementById("accountDescription").textContent =
+    mode === "signup"
+      ? "Join RallyXmon to discover and share videos."
+      : "Sign in to continue to RallyXmon.";
+
+  document.getElementById("authSubmit").textContent =
+    mode === "signup" ? "Create account" : "Sign in";
+
+  document.getElementById("authSwitchText").textContent =
+    mode === "signup" ? "Already have an account? " : "Need an account? ";
+
+  document.getElementById("authSwitch").textContent =
+    mode === "signup" ? "Sign in" : "Create account";
+
+  message.textContent = "";
 }
 
-$("switchBtn").onclick = () => {
-  signupMode = !signupMode;
-  $("authTitle").textContent = signupMode ? "Create your account" : "Sign in";
-  $("emailBtn").textContent = signupMode ? "Create account" : "Sign in";
-  $("switchBtn").textContent = signupMode ? "Back to sign in" : "Create an account";
-  $("password").autocomplete = signupMode ? "new-password" : "current-password";
-  message("");
-};
+function showFeed(user) {
+  welcomePage.hidden = true;
+  accountPage.hidden = true;
+  feedPage.hidden = false;
+  bottomNav.hidden = false;
 
-$("emailBtn").onclick = async () => {
-  const email = $("email").value.trim();
-  const password = $("password").value;
-  if (!email || !password) {
-    message("Enter your email and password.");
-    return;
-  }
-  $("emailBtn").disabled = true;
-  message("Please wait...");
+  const name = user.displayName || user.email || "Creator";
+  document.getElementById("userLabel").textContent =
+    "Signed in as " + name;
+}
+
+function setMessage(text) {
+  message.textContent = text;
+}
+
+document.getElementById("getStarted").addEventListener("click", () => {
+  showAccount("signup");
+});
+
+document.getElementById("headerGetStarted").addEventListener("click", () => {
+  showAccount("signup");
+});
+
+document.getElementById("headerSignIn").addEventListener("click", () => {
+  showAccount("signin");
+});
+
+document.getElementById("welcomeSignIn").addEventListener("click", () => {
+  showAccount("signin");
+});
+
+document.getElementById("backWelcome").addEventListener("click", () => {
+  showWelcome();
+});
+
+document.getElementById("authSwitch").addEventListener("click", () => {
+  showAccount(authMode === "signup" ? "signin" : "signup");
+});
+
+document.getElementById("authForm").addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const email = document.getElementById("authEmail").value.trim();
+  const password = document.getElementById("authPassword").value;
+
+  const submitButton = document.getElementById("authSubmit");
+  submitButton.disabled = true;
+  setMessage("Please wait...");
+
   try {
-    if (signupMode) {
+    if (authMode === "signup") {
       await createUserWithEmailAndPassword(auth, email, password);
     } else {
       await signInWithEmailAndPassword(auth, email, password);
     }
-  } catch (e) {
-    message(e.code + ": " + e.message);
+    // Firebase's auth listener will open the video feed.
+  } catch (error) {
+    setMessage(error.message || "Could not sign in. Please try again.");
   } finally {
-    $("emailBtn").disabled = false;
-  }
-};
-
-$("googleBtn").onclick = async () => {
-  try {
-    message("Opening Google sign-in...");
-    await signInWithRedirect(auth, google);
-  } catch (e) {
-    message(e.code + ": " + e.message);
-  }
-};
-
-try {
-  await getRedirectResult(auth);
-} catch (e) {
-  message(e.code + ": " + e.message);
-}
-
-$("logout").onclick = () => signOut(auth);
-
-onAuthStateChanged(auth, user => {
-  const loggedIn = !!user;
-  $("welcome").classList.toggle("hidden", loggedIn);
-  $("app").classList.toggle("hidden", !loggedIn);
-  $("logout").classList.toggle("hidden", !loggedIn);
-  $("bottomNav").classList.toggle("hidden", !loggedIn);
-
-  if (user) {
-    $("username").textContent = user.displayName || user.email || "Creator";
-    startFeed();
-  } else {
-    if (feedUnsubscribe) feedUnsubscribe();
-    feedUnsubscribe = null;
-    $("feed").replaceChildren();
-    showCreate(false);
+    submitButton.disabled = false;
   }
 });
 
-$("showCreate").onclick = () => showCreate(true);
-$("createNav").onclick = () => showCreate(true);
-$("homeBtn").onclick = () => {
-  showingDiscover = false;
-  $("homeBtn").classList.add("active");
-  $("discoverBtn").classList.remove("active");
-  $("feed").scrollIntoView({behavior:"smooth"});
-};
-$("discoverBtn").onclick = () => {
-  showingDiscover = true;
-  $("discoverBtn").classList.add("active");
-  $("homeBtn").classList.remove("active");
-  $("feed").scrollIntoView({behavior:"smooth"});
-};
-
-function startFeed() {
-  if (feedUnsubscribe) feedUnsubscribe();
-
-  const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
-
-  feedUnsubscribe = onSnapshot(q, snapshot => {
-    const feed = $("feed");
-    feed.replaceChildren();
-
-    if (snapshot.empty) {
-      const empty = document.createElement("div");
-      empty.className = "panel";
-      empty.textContent = "No videos yet. Be the first to publish!";
-      feed.append(empty);
-      return;
-    }
-
-    snapshot.forEach(item => {
-      const post = item.data();
-      const card = document.createElement("article");
-      card.className = "post";
-
-      const head = document.createElement("div");
-      head.className = "post-head";
-      const creator = document.createElement("strong");
-      creator.textContent = post.creatorName || "RallyXmon creator";
-      head.append(creator);
-
-      if (auth.currentUser && post.uid === auth.currentUser.uid) {
-        const del = document.createElement("button");
-        del.textContent = "Delete";
-        del.onclick = async () => {
-          if (!confirm("Delete your post?")) return;
-          del.disabled = true;
-          try {
-            await deleteDoc(doc(db, "posts", item.id));
-            if (post.storagePath) {
-              try {
-                await deleteObject(ref(storage, post.storagePath));
-              } catch (e) {
-                console.warn("Storage cleanup:", e);
-              }
-            }
-          } catch (e) {
-            alert("Could not delete: " + e.message);
-            del.disabled = false;
-          }
-        };
-        head.append(del);
-      }
-
-      const caption = document.createElement("p");
-      caption.textContent = post.caption || "";
-
-      card.append(head, caption);
-
-      if (post.videoUrl) {
-        const video = document.createElement("video");
-        video.src = post.videoUrl;
-        video.controls = true;
-        video.playsInline = true;
-        video.preload = "metadata";
-        card.append(video);
-      }
-
-      const info = document.createElement("p");
-      info.className = "muted";
-      info.textContent = "RallyXmon • Video post";
-      card.append(info);
-      feed.append(card);
-    });
-  }, error => {
-    $("feed").textContent =
-      "Feed error: " + error.message +
-      " — Check your Firestore database and security rules.";
-  });
-}
-
-$("uploadBtn").onclick = async () => {
-  const user = auth.currentUser;
-  const file = $("videoFile").files[0];
-  const caption = $("caption").value.trim();
-
-  if (!user) return alert("Please sign in first.");
-  if (!file) return alert("Choose a video first.");
-  if (!file.type.startsWith("video/")) {
-    return alert("Please select a video file.");
-  }
-
-  const btn = $("uploadBtn");
-  const status = $("uploadMessage");
-  btn.disabled = true;
+document.getElementById("googleSignIn").addEventListener("click", async () => {
+  const provider = new GoogleAuthProvider();
+  setMessage("Opening Google sign-in...");
 
   try {
-    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-    const path = `videos/${user.uid}/${Date.now()}_${safeName}`;
-    const storageRef = ref(storage, path);
-    const task = uploadBytesResumable(storageRef, file);
+    await signInWithPopup(auth, provider);
+  } catch (error) {
+    setMessage(error.message || "Google sign-in failed.");
+  }
+});
 
-    const url = await new Promise((resolve, reject) => {
-      task.on("state_changed",
-        snap => {
-          const percent = Math.round(
-            snap.bytesTransferred / snap.totalBytes * 100
-          );
-          status.textContent = `Uploading: ${percent}%`;
-        },
-        reject,
-        async () => {
+function escapeHTML(value = "") {
+  return String(value).replace(/[&<>"']/g, (character) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[character]);
+}
+
+function formatDate(timestamp) {
+  if (!timestamp || typeof timestamp.toDate !== "function") {
+    return "Recently posted";
+  }
+
+  return timestamp.toDate().toLocaleDateString();
+}
+
+function videoMatches(video) {
+  const categoryMatches =
+    selectedCategory === "All" ||
+    video.category === selectedCategory;
+
+  const text = (
+    (video.title || "") + " " +
+    (video.creatorName || "") + " " +
+    (video.category || "")
+  ).toLowerCase();
+
+  return categoryMatches && text.includes(searchTerm.toLowerCase());
+}
+
+function createShortCard(video) {
+  const card = document.createElement("article");
+  card.className = "short-card";
+
+  const player = document.createElement("video");
+  player.src = video.videoURL;
+  player.controls = true;
+  player.playsInline = true;
+  player.preload = "metadata";
+  player.setAttribute("aria-label", video.title || "Short video");
+
+  const label = document.createElement("div");
+  label.className = "short-label";
+  label.textContent = video.title || "Untitled Short";
+
+  card.append(player, label);
+  return card;
+}
+
+function createVideoCard(video) {
+  const card = document.createElement("article");
+  card.className = "video-card";
+
+  const player = document.createElement("video");
+  player.className = "video-frame";
+  player.src = video.videoURL;
+  player.controls = true;
+  player.playsInline = true;
+  player.preload = "metadata";
+  player.setAttribute("aria-label", video.title || "Video");
+
+  const info = document.createElement("div");
+  info.className = "video-info";
+
+  const title = document.createElement("h3");
+  title.className = "video-title";
+  title.textContent = video.title || "Untitled video";
+
+  const meta = document.createElement("p");
+  meta.className = "video-meta";
+  meta.textContent =
+    (video.creatorName || "Creator") + " · " +
+    (video.category || "Other") + " · " +
+    formatDate(video.createdAt);
+
+  const actions = document.createElement("div");
+  actions.className = "video-actions";
+
+  const likeButton = document.createElement("button");
+  likeButton.className = "small-btn";
+  likeButton.textContent = "♡ Like";
+
+  likeButton.addEventListener("click", () => {
+    const liked = likeButton.dataset.liked === "true";
+    likeButton.dataset.liked = String(!liked);
+    likeButton.textContent = liked ? "♡ Like" : "♥ Liked";
+  });
+
+  const shareButton = document.createElement("button");
+  shareButton.className = "small-btn";
+  shareButton.textContent = "↗ Share";
+
+  shareButton.addEventListener("click", async () => {
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: video.title || "RallyXmon video",
+          url: video.videoURL
+        });
+      } else if (navigator.clipboard) {
+        await navigator.clipboard.writeText(video.videoURL);
+        shareButton.textContent = "Link copied";
+      } else {
+        window.prompt("Copy this video link:", video.videoURL);
+      }
+    } catch (error) {
+      // The viewer may cancel the share menu.
+    }
+  });
+
+  actions.append(likeButton, shareButton);
+
+  if (currentUser && video.ownerId === currentUser.uid) {
+    const deleteButton = document.createElement("button");
+    deleteButton.className = "small-btn";
+    deleteButton.textContent = "Delete";
+
+    deleteButton.addEventListener("click", async () => {
+      const confirmed = window.confirm("Delete this video?");
+      if (!confirmed) return;
+
+      deleteButton.disabled = true;
+
+      try {
+        await deleteDoc(doc(db, "videos", video.id));
+
+        if (video.storagePath) {
           try {
-            resolve(await getDownloadURL(task.snapshot.ref));
-          } catch (e) {
-            reject(e);
+            await deleteObject(ref(storage, video.storagePath));
+          } catch (storageError) {
+            console.warn("Video file cleanup failed:", storageError);
           }
         }
-      );
+      } catch (error) {
+        window.alert("Could not delete this video: " + error.message);
+        deleteButton.disabled = false;
+      }
     });
 
-    await addDoc(collection(db, "posts"), {
-      uid: user.uid,
-      creatorName: user.displayName || user.email || "Creator",
-      caption,
-      videoUrl: url,
-      storagePath: path,
+    actions.append(deleteButton);
+  }
+
+  info.append(title, meta, actions);
+  card.append(player, info);
+  return card;
+}
+
+function renderVideos() {
+  const shortsFeed = document.getElementById("shortsFeed");
+  const videoFeed = document.getElementById("videoFeed");
+
+  shortsFeed.replaceChildren();
+  videoFeed.replaceChildren();
+
+  const filtered = allVideos.filter(videoMatches);
+  const shorts = filtered.filter(video => video.type === "short");
+  const regularVideos = filtered.filter(video => video.type !== "short");
+
+  if (shorts.length === 0) {
+    const empty = document.createElement("p");
+    empty.className = "muted";
+    empty.textContent = "No Shorts yet. Be the first to share one!";
+    shortsFeed.append(empty);
+  } else {
+    shorts.forEach(video => shortsFeed.append(createShortCard(video)));
+  }
+
+  if (regularVideos.length === 0) {
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.textContent = "No videos found yet. Check back soon or upload the first video!";
+    videoFeed.append(empty);
+  } else {
+    regularVideos.forEach(video => videoFeed.append(createVideoCard(video)));
+  }
+}
+
+function listenForVideos() {
+  if (unsubscribeVideos) {
+    unsubscribeVideos();
+  }
+
+  const videosQuery = query(
+    collection(db, "videos"),
+    orderBy("createdAt", "desc")
+  );
+
+  unsubscribeVideos = onSnapshot(
+    videosQuery,
+    snapshot => {
+      allVideos = snapshot.docs.map(item => ({
+        id: item.id,
+        ...item.data()
+      }));
+      renderVideos();
+      document.getElementById("feedMessage").textContent = "";
+    },
+    error => {
+      console.error("Video feed error:", error);
+      document.getElementById("feedMessage").textContent =
+        "Could not load videos. Check your Firestore database and security rules.";
+    }
+  );
+}
+
+document.getElementById("searchInput").addEventListener("input", event => {
+  searchTerm = event.target.value.trim();
+  renderVideos();
+});
+
+document.getElementById("headerSearch").addEventListener("click", () => {
+  if (currentUser) {
+    document.getElementById("searchInput").focus();
+    document.getElementById("searchInput").scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+  } else {
+    showAccount("signin");
+  }
+});
+
+document.getElementById("categoryList").addEventListener("click", event => {
+  const button = event.target.closest("[data-category]");
+  if (!button) return;
+
+  selectedCategory = button.dataset.category;
+
+  document.querySelectorAll("#categoryList .chip").forEach(chip => {
+    chip.classList.toggle("active", chip === button);
+  });
+
+  renderVideos();
+});
+
+document.getElementById("bottomNav").addEventListener("click", event => {
+  const button = event.target.closest("[data-page]");
+  if (!button) return;
+
+  document.querySelectorAll(".nav-btn").forEach(navButton => {
+    navButton.classList.toggle("active", navButton === button);
+  });
+
+  const page = button.dataset.page;
+
+  if (page === "create") {
+    document.getElementById("uploadBox").hidden = false;
+    document.getElementById("uploadBox").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  } else if (page === "shorts") {
+    document.getElementById("shortsFeed").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  } else if (page === "discover") {
+    document.getElementById("searchInput").focus();
+    document.getElementById("searchInput").scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+  } else if (page === "you") {
+    window.alert(
+      "Signed in as " + (currentUser?.email || "your account") +
+      ". Use Sign out at the top when you need to leave."
+    );
+  } else {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+});
+ 
+document.getElementById("uploadForm").addEventListener("submit", async event => {
+  event.preventDefault();
+
+  if (!currentUser) {
+    window.alert("Please sign in before uploading.");
+    return;
+  }
+
+  if (isUploading) return;
+
+  const title = document.getElementById("videoTitle").value.trim();
+  const category = document.getElementById("videoCategory").value;
+  const type = document.getElementById("videoType").value;
+  const file = document.getElementById("videoFile").files[0];
+  const uploadButton = document.getElementById("uploadButton");
+  const uploadMessage = document.getElementById("uploadMessage");
+
+  if (!title || !file) {
+    uploadMessage.textContent = "Enter a title and choose a video.";
+    return;
+  }
+
+  if (!file.type.startsWith("video/")) {
+    uploadMessage.textContent = "Please choose a valid video file.";
+    return;
+  }
+
+  // Keep uploads manageable for mobile data and storage.
+  const maxSize = 100 * 1024 * 1024;
+
+  if (file.size > maxSize) {
+    uploadMessage.textContent =
+      "This video is over 100 MB. Please choose a smaller file.";
+    return;
+  }
+
+  isUploading = true;
+  uploadButton.disabled = true;
+  uploadButton.textContent = "Uploading...";
+  uploadMessage.textContent =
+    "Uploading video. Keep this page open until it finishes.";
+
+  let uploadedStoragePath = "";
+
+  try {
+    const safeFileName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+    const storagePath =
+      "videos/" + currentUser.uid + "/" + Date.now() + "_" + safeFileName;
+
+    const storageReference = ref(storage, storagePath);
+
+    await uploadBytes(storageReference, file);
+    uploadedStoragePath = storagePath;
+
+    const videoURL = await getDownloadURL(storageReference);
+
+    await addDoc(collection(db, "videos"), {
+      title,
+      category,
+      type,
+      videoURL,
+      storagePath,
+      ownerId: currentUser.uid,
+      creatorName: currentUser.displayName || currentUser.email || "Creator",
       createdAt: serverTimestamp()
     });
 
-    $("caption").value = "";
-    $("videoFile").value = "";
-    status.textContent = "Video published successfully!";
-    showCreate(false);
-  } catch (e) {
-    status.textContent = e.code
-      ? e.code + ": " + e.message
-      : e.message;
+    document.getElementById("uploadForm").reset();
+    uploadMessage.textContent = "Your video was uploaded successfully!";
+    document.getElementById("uploadBox").hidden = true;
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  } catch (error) {
+    console.error("Upload failed:", error);
+
+    // If the file uploaded but its post did not, try to remove the unused file.
+    if (uploadedStoragePath) {
+      try {
+        await deleteObject(ref(storage, uploadedStoragePath));
+      } catch (cleanupError) {
+        console.warn("Could not clean up uploaded file:", cleanupError);
+      }
+    }
+
+    uploadMessage.textContent =
+      "Upload failed: " + (error.message || "Please check Firebase setup and try again.");
   } finally {
-    btn.disabled = false;
+    isUploading = false;
+    uploadButton.disabled = false;
+    uploadButton.textContent = "Upload video";
   }
-};
+});
+
+document.getElementById("signOutButton").addEventListener("click", async () => {
+  try {
+    await signOut(auth);
+    showWelcome();
+  } catch (error) {
+    window.alert("Could not sign out: " + error.message);
+  }
+});
+
+// Automatically show the video feed when a user is signed in.
+onAuthStateChanged(auth, user => {
+  currentUser = user;
+
+  if (user) {
+    showFeed(user);
+    listenForVideos();
+  } else {
+    if (unsubscribeVideos) {
+      unsubscribeVideos();
+      unsubscribeVideos = null;
+    }
+
+    allVideos = [];
+    document.getElementById("shortsFeed").replaceChildren();
+    document.getElementById("videoFeed").replaceChildren();
+    document.getElementById("uploadBox").hidden = true;
+    showWelcome();
+  }
+});
 </script>
 </body>
-    </html>
-                                                              
+</html>
