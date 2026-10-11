@@ -4,1156 +4,436 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RallyXmon</title>
+<title>RALLY FOOTBALL</title>
 
 <style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+*{box-sizing:border-box}
+body{
+  margin:0;background:#050810;color:white;
+  font-family:Arial,sans-serif;overflow:hidden
 }
-
-:root {
-  --bg: #0b0b0f;
-  --panel: #17171f;
-  --line: #292933;
-  --blue: #2196f3;
-  --muted: #aaa;
+button{cursor:pointer;font-weight:900;border:0}
+#intro{
+  position:fixed;inset:0;z-index:5;
+  display:flex;flex-direction:column;
+  justify-content:space-between;align-items:center;
+  padding:30px 18px;
+  background:
+    radial-gradient(ellipse at 50% 65%,#14612f 0%,transparent 45%),
+    linear-gradient(180deg,#050815 0%,#102b40 52%,#07130d 100%);
 }
-
-body {
-  background: var(--bg);
-  color: white;
-  font-family: Arial, sans-serif;
+.top{width:100%;display:flex;justify-content:space-between;
+align-items:center;max-width:600px}
+.logo{font-size:22px;font-weight:1000;letter-spacing:2px}
+.logo span{color:#35e5ff}
+.pill{border:1px solid #ffffff40;padding:8px 12px;
+border-radius:20px;font-size:10px;letter-spacing:2px}
+.hero{text-align:center;width:100%;max-width:600px}
+.eyebrow{color:#48edff;letter-spacing:5px;font-size:11px;
+font-weight:bold}
+h1{font-size:clamp(48px,13vw,86px);line-height:.9;
+font-style:italic;letter-spacing:-4px;margin:17px 0}
+h1 span{color:#4ceaff;text-shadow:0 0 30px #00aaff70}
+.subtitle{color:#c4d3e2;letter-spacing:2px;font-size:12px}
+.trophy{
+  font-size:clamp(85px,25vw,145px);
+  margin:20px 0 5px;
+  filter:drop-shadow(0 0 28px #f6b73375);
+  animation:float 3s ease-in-out infinite;
 }
-
-button, input {
-  font: inherit;
+@keyframes float{
+  50%{transform:translateY(-9px) scale(1.04)}
 }
-
-button {
-  cursor: pointer;
-  border: 0;
+.cta{
+  width:min(100%,360px);padding:19px;
+  border-radius:8px;color:#00131a;font-size:16px;
+  background:linear-gradient(100deg,#38eaff,#6bffb1);
+  box-shadow:0 0 30px #31ddff45;
 }
-
-[hidden] {
-  display: none !important;
-}
-
-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: #0b0b0ff5;
-  border-bottom: 1px solid var(--line);
-  padding: 13px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  font-size: 22px;
-  font-weight: bold;
-}
-
-.logo {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  background: var(--blue);
-  display: grid;
-  place-items: center;
-  font-size: 23px;
-}
-
-.icon-btn {
-  background: #22222b;
-  color: white;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  font-size: 18px;
-}
-
-.primary, .secondary {
-  padding: 12px 18px;
-  border-radius: 9px;
-  font-weight: bold;
-}
-
-.primary {
-  background: var(--blue);
-  color: white;
-}
-
-.primary:hover {
-  background: #1976d2;
-}
-
-.secondary {
-  background: #252530;
-  color: white;
-  border: 1px solid #383845;
-}
-
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-main {
-  max-width: 1100px;
-  margin: auto;
-  padding: 20px 16px 95px;
-}
-
-.welcome {
-  max-width: 680px;
-  margin: 55px auto;
-  text-align: center;
-}
-
-.welcome h1 {
-  font-size: clamp(30px, 6vw, 46px);
-  margin-bottom: 15px;
-}
-
-.blue {
-  color: var(--blue);
-}
-
-.welcome p, .muted {
-  color: var(--muted);
-  line-height: 1.6;
-}
-
-.welcome-actions {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: 24px;
-}
-
-.features {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  max-width: 520px;
-  margin: 28px auto;
-}
-
-.feature {
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 18px;
-  text-align: left;
-}
-
-.feature strong {
-  display: block;
-  margin-bottom: 7px;
-  color: var(--blue);
-}
-
-.account {
-  max-width: 430px;
-  margin: 30px auto;
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  padding: 24px;
-}
-
-.account h2 {
-  margin-bottom: 10px;
-}
-
-.account p {
-  color: var(--muted);
-  line-height: 1.5;
-  margin-bottom: 14px;
-}
-
-.account input {
-  width: 100%;
-  padding: 14px;
-  margin: 8px 0 14px;
-  border: 1px solid #383845;
-  background: var(--bg);
-  border-radius: 9px;
-  color: white;
-}
-
-.account button {
-  width: 100%;
-  margin-top: 8px;
-}
-
-.link {
-  color: var(--blue);
-  cursor: pointer;
-  text-decoration: underline;
-}
-
-#message {
-  font-size: 14px;
-  overflow-wrap: anywhere;
-  margin-top: 13px;
-}
- 
-.feed-heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  margin: 25px 0 16px;
-}
-
-.feed-heading h2 {
-  font-size: 22px;
-}
-
-.search {
-  width: 100%;
-  padding: 13px;
-  margin: 14px 0;
-  background: var(--panel);
-  color: white;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-}
-
-.categories {
-  display: flex;
-  gap: 9px;
-  overflow-x: auto;
-  padding: 5px 0 14px;
-}
-
-.chip {
-  flex-shrink: 0;
-  background: #22222b;
-  color: white;
-  padding: 9px 15px;
-  border-radius: 20px;
-}
-
-.chip.active {
-  background: white;
-  color: #111;
-}
-
-.shorts-row {
-  display: flex;
-  gap: 12px;
-  overflow-x: auto;
-  padding-bottom: 12px;
-}
-
-.short-card {
-  flex: 0 0 145px;
-  min-width: 145px;
-  height: 235px;
-  background: #20202a;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  overflow: hidden;
-  position: relative;
-}
-
-.short-card video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.short-label {
-  position: absolute;
-  left: 9px;
-  bottom: 10px;
-  right: 9px;
-  padding: 8px;
-  border-radius: 7px;
-  background: #0009;
-  font-size: 13px;
-  overflow-wrap: anywhere;
-}
-
-.video-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px 12px;
-}
-
-.video-card {
-  min-width: 0;
-  overflow: hidden;
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: 12px;
-}
-
-.video-frame {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  display: block;
-  object-fit: cover;
-  background: #20202a;
-}
-
-.video-info {
-  padding: 11px;
-}
-
-.video-title {
-  font-size: 15px;
-  line-height: 1.4;
-  overflow-wrap: anywhere;
-  margin-bottom: 7px;
-}
-
-.video-meta {
-  color: var(--muted);
-  font-size: 12px;
-  margin-bottom: 10px;
-}
-
-.video-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-}
-
-.small-btn {
-  background: #292933;
-  color: white;
-  border-radius: 7px;
-  padding: 8px 10px;
-  font-size: 12px;
-}
-
-.upload-box {
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  padding: 18px;
-  margin: 18px 0;
-}
-
-.upload-box input,
-.upload-box select {
-  display: block;
-  width: 100%;
-  padding: 12px;
-  margin: 12px 0;
-  background: var(--bg);
-  border: 1px solid #383845;
-  color: white;
-  border-radius: 8px;
-}
-
-.upload-box input[type="file"] {
-  font-size: 13px;
-}
-
-.upload-box button {
-  width: 100%;
-  margin-top: 8px;
-}
-
-.empty {
-  text-align: center;
-  padding: 35px 15px;
-  color: var(--muted);
-  background: var(--panel);
-  border-radius: 12px;
-  line-height: 1.6;
-}
-
-.bottom-nav {
-  position: fixed;
-  z-index: 20;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: #111116f7;
-  border-top: 1px solid var(--line);
-  display: flex;
-  justify-content: space-around;
-  padding: 10px 4px calc(10px + env(safe-area-inset-bottom));
-}
-
-.nav-btn {
-  background: transparent;
-  color: #aaa;
-  min-width: 52px;
-  padding: 5px;
-  font-size: 11px;
-}
-
-.nav-btn span {
-  display: block;
-  font-size: 20px;
-  margin-bottom: 4px;
-}
-
-.nav-btn.active {
-  color: var(--blue);
-}
-
-footer {
-  text-align: center;
-  color: var(--muted);
-  font-size: 12px;
-  padding: 20px 0;
-}
-
-@media (min-width: 750px) {
-  .video-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .short-card {
-    flex-basis: 165px;
-    height: 260px;
-  }
-}
-
-@media (max-width: 380px) {
-  main {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
-  .video-grid {
-    gap: 10px 8px;
-  }
-
-  .video-info {
-    padding: 8px;
-  }
-
-  .video-title {
-    font-size: 13px;
-  }
-
-  .header-actions .secondary {
-    display: none;
-  }
-}
+.note{font-size:10px;color:#8293a7;letter-spacing:2px;
+margin-top:15px}
+.bottom{font-size:10px;letter-spacing:3px;color:#8da0b2}
+#game{display:none;position:fixed;inset:0;background:#07120b}
+#game canvas{display:block;width:100%;height:100%}
+.hud{position:absolute;inset:0;pointer-events:none;padding:16px}
+.hud button{pointer-events:auto}
+.gamebrand{font-weight:1000;font-size:18px;
+text-shadow:0 2px 8px #000}
+.score{position:absolute;top:15px;left:50%;
+transform:translateX(-50%);background:#07151ddd;
+border:1px solid #ffffff30;padding:12px 20px;
+border-radius:10px;text-align:center;white-space:nowrap}
+.score small{display:block;font-size:9px;letter-spacing:2px;
+color:#5eeaff;margin-bottom:5px}
+#scoreNum{font-size:25px}
+.back{background:#111d2cdd;color:white;
+padding:11px 14px;border-radius:8px}
+.controls{position:absolute;bottom:24px;left:20px;right:20px;
+display:flex;justify-content:space-between;align-items:end}
+.pad{display:grid;grid-template-columns:repeat(3,48px);
+grid-template-rows:repeat(2,48px);gap:5px}
+.ctrl,.shoot{background:#0b1928cc;color:white;
+border:1px solid #ffffff55;border-radius:12px;
+font-size:20px;touch-action:none}
+.ctrl{width:48px;height:48px}
+.shoot{width:84px;height:84px;border-radius:50%;
+background:linear-gradient(145deg,#50f1ff,#1584ff);
+color:#001322;box-shadow:0 0 25px #00aaff70;font-size:13px}
+#message{position:absolute;top:29%;width:100%;text-align:center;
+font-size:12px;letter-spacing:3px;color:#d8faff;
+text-shadow:0 2px 8px black;pointer-events:none}
 </style>
 </head>
 
 <body>
-<header>
-  <div class="brand">
-    <div class="logo">R</div>
-    <span>Rally<span class="blue">Xmon</span></span>
+<section id="intro">
+  <div class="top">
+    <div class="logo">RALLY<span>⚡</span></div>
+    <div class="pill">FOOTBALL • 3D</div>
   </div>
 
-  <div class="header-actions">
-    <button class="secondary" id="headerSignIn">Sign in</button>
-    <button class="primary" id="headerGetStarted">Get started</button>
-    <button class="icon-btn" id="headerSearch" aria-label="Search">⌕</button>
+  <div class="hero">
+    <div class="eyebrow">THE NEXT GENERATION OF FOOTBALL</div>
+    <h1>SUPER<br><span>STAR</span></h1>
+    <div class="subtitle">YOUR CLUB. YOUR LEGACY.</div>
+    <div class="trophy">🏆</div>
+    <button class="cta" id="start">GET STARTED &nbsp; ➜</button>
+    <div class="note">ENTER THE STADIUM</div>
   </div>
-</header>
 
-<main>
-  <section id="welcomePage">
-    <div class="welcome">
-      <h1>Your world. Your videos. <span class="blue">RallyXmon.</span></h1>
-      <p>Discover videos, share your creativity, and connect with a growing community.</p>
+  <div class="bottom">PLAY WITH PASSION · WIN WITH PRIDE</div>
+</section>
 
-      <div class="welcome-actions">
-        <button class="primary" id="getStarted">Get started</button>
-        <button class="secondary" id="welcomeSignIn">Sign in</button>
+<section id="game">
+  <div class="hud">
+    <div class="gamebrand">RALLY<span style="color:#4ceaff">⚡</span></div>
+    <button class="back" id="back">← MENU</button>
+    <div class="score">
+      <small>YOUR MATCH</small>
+      <span id="scoreNum">0</span> &nbsp; GOALS
+    </div>
+    <div id="message">YOUR STADIUM AWAITS</div>
+
+    <div class="controls">
+      <div class="pad">
+        <span></span>
+        <button class="ctrl" data-move="forward">▲</button>
+        <span></span>
+        <button class="ctrl" data-move="left">◀</button>
+        <button class="ctrl" data-move="back">▼</button>
+        <button class="ctrl" data-move="right">▶</button>
       </div>
-
-      <div class="features">
-        <div class="feature">
-          <strong>▶ Discover</strong>
-          <span class="muted">Find videos and new creators.</span>
-        </div>
-        <div class="feature">
-          <strong>＋ Create</strong>
-          <span class="muted">Share your videos with others.</span>
-        </div>
-        <div class="feature">
-          <strong>♡ Community</strong>
-          <span class="muted">Like videos and share them.</span>
-        </div>
-        <div class="feature">
-          <strong>★ Creator growth</strong>
-          <span class="muted">Build your audience over time.</span>
-        </div>
-      </div>
+      <button class="shoot" id="shoot">SHOOT<br>⚽</button>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="accountPage" class="account" hidden>
-    <h2 id="accountTitle">Create your account</h2>
-    <p id="accountDescription">Join RallyXmon to discover and share videos.</p>
-
-    <form id="authForm">
-      <input id="authEmail" type="email" placeholder="Email address" autocomplete="email" required>
-      <input id="authPassword" type="password" placeholder="Password (at least 6 characters)" autocomplete="current-password" minlength="6" required>
-      <button class="primary" id="authSubmit" type="submit">Create account</button>
-    </form>
-
-    <button class="secondary" id="googleSignIn" type="button">Continue with Google</button>
-
-    <p style="margin-top:16px">
-      <span id="authSwitchText">Already have an account?</span>
-      <span class="link" id="authSwitch">Sign in</span>
-    </p>
-
-    <button class="secondary" id="backWelcome" type="button">Back</button>
-    <p id="message" role="status"></p>
-  </section>
-
-  <section id="feedPage" hidden>
-    <div class="feed-heading">
-      <div>
-        <h2>Welcome to RallyXmon</h2>
-        <p class="muted" id="userLabel">Discover something new.</p>
-      </div>
-      <button class="secondary" id="signOutButton">Sign out</button>
-    </div>
-
-    <input id="searchInput" class="search" type="search" placeholder="Search videos or creators...">
-
-    <div class="categories" id="categoryList">
-      <button class="chip active" data-category="All">All</button>
-      <button class="chip" data-category="Football">Football</button>
-      <button class="chip" data-category="Gaming">Gaming</button>
-      <button class="chip" data-category="Music">Music</button>
-      <button class="chip" data-category="Entertainment">Entertainment</button>
-      <button class="chip" data-category="Other">Other</button>
-    </div>
-
-    <div class="feed-heading">
-      <h2>Shorts</h2>
-      <span class="muted">Quick videos</span>
-    </div>
-    <div id="shortsFeed" class="shorts-row"></div>
-
-    <div class="feed-heading">
-      <h2>Videos</h2>
-      <span class="muted">From the community</span>
-    </div>
-    <div id="videoFeed" class="video-grid"></div>
-
-    <p id="feedMessage" class="muted" style="margin-top:16px"></p>
-
-    <section class="upload-box" id="uploadBox" hidden>
-      <h2>Create a post</h2>
-      <p class="muted" style="margin-top:8px">Choose a video and share it with the community.</p>
-
-      <form id="uploadForm">
-        <input id="videoTitle" type="text" maxlength="120" placeholder="Video title" required>
-        <select id="videoCategory" required>
-          <option value="Football">Football</option>
-          <option value="Gaming">Gaming</option>
-          <option value="Music">Music</option>
-          <option value="Entertainment">Entertainment</option>
-          <option value="Other">Other</option>
-        </select>
-        <select id="videoType">
-          <option value="video">Regular video</option>
-          <option value="short">Short</option>
-        </select>
-        <input id="videoFile" type="file" accept="video/*" required>
-        <p class="muted">Large videos use more mobile data and storage.</p>
-        <button class="primary" id="uploadButton" type="submit">Upload video</button>
-      </form>
-      <p id="uploadMessage" class="muted" style="margin-top:12px"></p>
-    </section>
-  </section>
-</main>
-
-<nav class="bottom-nav" id="bottomNav" hidden>
-  <button class="nav-btn active" data-page="home"><span>⌂</span>Home</button>
-  <button class="nav-btn" data-page="shorts"><span>▣</span>Shorts</button>
-  <button class="nav-btn" data-page="create"><span>＋</span>Create</button>
-  <button class="nav-btn" data-page="discover"><span>⌕</span>Discover</button>
-  <button class="nav-btn" data-page="you"><span>☺</span>You</button>
-</nav>
-
-<footer>RallyXmon · Create. Discover. Connect.</footer>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js"
+  }
+}
+</script>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
-import {
-  getAuth,
-  onAuthStateChanged,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithPopup,
-  signOut
-} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+import * as THREE from "three";
 
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  deleteDoc,
-  doc,
-  onSnapshot,
-  query,
-  orderBy,
-  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+const intro = document.querySelector("#intro");
+const game = document.querySelector("#game");
+const message = document.querySelector("#message");
+const scoreNum = document.querySelector("#scoreNum");
 
-import {
-  getStorage,
-  ref,
-  uploadBytes,
-  getDownloadURL,
-  deleteObject
-} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-storage.js";
+let scene, camera, renderer, player, ball, goal;
+let started = false, goals = 0, shotTime = 0;
+let ballVelocity = new THREE.Vector3();
+const keys = new Set();
+const clock = new THREE.Clock();
 
-const firebaseConfig = {
-  apiKey: "AIzaSyC4cLYzzcGATufTiuxKt96cBWZK_Dmv01s",
-  authDomain: "rallyxmon-new.firebaseapp.com",
-  projectId: "rallyxmon-new",
-  storageBucket: "rallyxmon-new.firebasestorage.app",
-  messagingSenderId: "155445902846",
-  appId: "1:155445902846:web:549c9e1eed7ada916694af",
-  measurementId: "G-TGVZGFQNCQ"
+function material(color, extra={}) {
+  return new THREE.MeshStandardMaterial({color,...extra});
+}
+
+function box(parent, size, pos, mat) {
+  const obj = new THREE.Mesh(
+    new THREE.BoxGeometry(...size), mat
+  );
+  obj.position.set(...pos);
+  parent.add(obj);
+  return obj;
+}
+
+function buildStadium() {
+  scene = new THREE.Scene();
+  scene.background = new THREE.Color("#83b7df");
+  scene.fog = new THREE.Fog("#83b7df", 65, 145);
+
+  camera = new THREE.PerspectiveCamera(
+    53, innerWidth/innerHeight, 0.1, 250
+  );
+
+  renderer = new THREE.WebGLRenderer({antialias:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));
+  renderer.setSize(innerWidth,innerHeight);
+  renderer.shadowMap.enabled = false;
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  game.appendChild(renderer.domElement);
+
+  scene.add(new THREE.HemisphereLight("#e7f6ff","#18381b",2));
+
+  const sun = new THREE.DirectionalLight("#ffffff",2.5);
+  sun.position.set(-15,35,12);
+  scene.add(sun);
+
+  // Football pitch
+  const grass = material("#17813d");
+  box(scene,[64,.2,100],[0,-.15,0],grass);
+
+  // Alternating grass stripes
+  for(let i=0;i<10;i++){
+    box(scene,[64,.02,10],[0,-.035,-45+i*10],
+      material(i%2?"#218c43":"#197b39"));
+  }
+
+  // Pitch markings
+  const white = new THREE.MeshBasicMaterial({color:"#ffffff"});
+  function line(x1,z1,x2,z2) {
+    const dx=x2-x1, dz=z2-z1;
+    const length=Math.hypot(dx,dz);
+    const obj=new THREE.Mesh(
+      new THREE.BoxGeometry(length,.035,.14),white
+    );
+    obj.position.set((x1+x2)/2,-.01,(z1+z2)/2);
+    obj.rotation.y=-Math.atan2(dz,dx);
+    scene.add(obj);
+  }
+
+  line(-29,-45,29,-45);
+  line(-29,45,29,45);
+  line(-29,-45,-29,45);
+  line(29,-45,29,45);
+  line(-29,0,29,0);
+
+  const circle=new THREE.Mesh(
+    new THREE.RingGeometry(9.8,10,.8,100),
+    new THREE.MeshBasicMaterial({color:"white",side:THREE.DoubleSide})
+  );
+  circle.rotation.x=-Math.PI/2;
+  circle.position.y=.01;
+  scene.add(circle);
+
+  box(scene,[.14,.04,16],[0,.01,-34],white);
+  box(scene,[.14,.04,16],[0,.01,34],white);
+  box(scene,[16,.04,.14],[0,.01,-42],white);
+  box(scene,[16,.04,.14],[0,.01,42],white);
+
+  // Stadium stands
+  const standColors=["#14283d","#263c54","#172c43"];
+  for(let side of [-1,1]){
+    for(let tier=0;tier<3;tier++){
+      box(scene,[72,3,8],
+        [0,4+tier*3,side*(54+tier*5)],
+        material(standColors[tier]));
+    }
+  }
+
+  // Stadium floodlights
+  for(let x of [-31,31]){
+    for(let z of [-43,43]){
+      box(scene,[.35,20,.35],[x,11,z],
+        material("#788da3",{metalness:.5}));
+      const light=new THREE.PointLight("#d8f5ff",18,45);
+      light.position.set(x,22,z);
+      scene.add(light);
+      box(scene,[4,.4,.7],[x,21,z],
+        material("#e6fbff",{emissive:"#7abfff",emissiveIntensity:2}));
+    }
+  }
+
+  // Goal at far end
+  goal=new THREE.Group();
+  goal.position.set(0,0,-44);
+  scene.add(goal);
+
+  const postMat=material("#ffffff",{metalness:.2});
+  box(goal,[.25,5,.25],[-6,2.5,0],postMat);
+  box(goal,[.25,5,.25],[6,2.5,0],postMat);
+  box(goal,[12,.25,.25],[0,5,0],postMat);
+
+  const netMat=new THREE.MeshBasicMaterial({
+    color:"#d8f2ff",wireframe:true
+  });
+  const net=new THREE.Mesh(
+    new THREE.BoxGeometry(12,5,3),netMat
+  );
+  net.position.set(0,2.5,-1.4);
+  goal.add(net);
+
+  // Simple 3D player
+  player=new THREE.Group();
+  const shirt=material("#e9f3ff");
+  const shorts=material("#142b65");
+  const skin=material("#a96c43");
+  box(player,[1.15,1.35,.65],[0,2.15,0],shirt);
+  box(player,[.65,.65,.65],[0,3.2,0],skin);
+  box(player,[.4,.16,.4],[0,3.58,0],
+    material("#152e67"));
+  box(player,[.4,.95,.42],[-.32,.95,0],shorts);
+  box(player,[.4,.95,.42],[.32,.95,0],shorts);
+  box(player,[.32,.95,.35],[-.32,.4,.03],
+    material("#eaf5ff"));
+  box(player,[.32,.95,.35],[.32,.4,.03],
+    material("#eaf5ff"));
+  scene.add(player);
+  player.position.set(0,0,22);
+
+  // Football
+  ball=new THREE.Mesh(
+    new THREE.SphereGeometry(.48,20,16),
+    material("#ffffff")
+  );
+  ball.position.set(0,.5,19.8);
+  scene.add(ball);
+
+  // Skybox-like stadium surroundings
+  for(let i=0;i<100;i++){
+    const light=new THREE.Mesh(
+      new THREE.BoxGeometry(.22,.22,.22),
+      new THREE.MeshBasicMaterial({
+        color:i%2?"#bdefff":"#ffffff"
+      })
+    );
+    light.position.set(
+      (Math.random()-.5)*90,
+      5+Math.random()*10,
+      (Math.random()-.5)*110
+    );
+    scene.add(light);
+  }
+
+  camera.position.set(0,8,34);
+  camera.lookAt(0,1,12);
+}
+
+function resetBall(){
+  ball.position.set(
+    player.position.x, .5, player.position.z-2.2
+  );
+  ballVelocity.set(0,0,0);
+}
+
+function animate(){
+  if(!started)return;
+  requestAnimationFrame(animate);
+
+  const dt=Math.min(clock.getDelta(),.04);
+  const speed=9*dt;
+
+  if(keys.has("left")) player.position.x-=speed;
+  if(keys.has("right")) player.position.x+=speed;
+  if(keys.has("forward")) player.position.z-=speed;
+  if(keys.has("back")) player.position.z+=speed;
+
+  player.position.x=THREE.MathUtils.clamp(
+    player.position.x,-27,27
+  );
+  player.position.z=THREE.MathUtils.clamp(
+    player.position.z,-39,43
+  );
+
+  // Follow the player
+  const target=new THREE.Vector3(
+    player.position.x*.5,7,player.position.z+12
+  );
+  camera.position.lerp(target,.08);
+  camera.lookAt(player.position.x,1,player.position.z-10);
+
+  // Ball physics
+  ball.position.addScaledVector(ballVelocity,dt);
+  ballVelocity.multiplyScalar(Math.pow(.985,dt*60));
+  ballVelocity.y-=9.8*dt;
+
+  if(ball.position.y<.48){
+    ball.position.y=.48;
+    if(ballVelocity.y<0)ballVelocity.y*=-.45;
+  }
+
+  // Player and ball collision
+  if(ball.position.distanceTo(
+    new THREE.Vector3(player.position.x,ball.position.y,
+      player.position.z-1.7)
+  )<1.3 && ballVelocity.length()<1.5){
+    ball.position.x=player.position.x;
+    ball.position.z=player.position.z-2;
+  }
+
+  // Goal detection
+  if(ball.position.z < -43 &&
+     Math.abs(ball.position.x)<6 &&
+     ball.position.y<5){
+    goals++;
+    scoreNum.textContent=goals;
+    message.textContent="GOAL! SUPER STAR! 🏆";
+    resetBall();
+    setTimeout(()=>message.textContent="YOUR NEXT GOAL AWAITS",1300);
+  }
+
+  if(ball.position.z < -48 ||
+     ball.position.z > 48 ||
+     Math.abs(ball.position.x)>32){
+    resetBall();
+  }
+
+  renderer.render(scene,camera);
+}
+
+document.querySelector("#start").onclick=()=>{
+  intro.style.display="none";
+  game.style.display="block";
+
+  if(!started){
+    buildStadium();
+    started=true;
+    animate();
+  }
+  clock.start();
 };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const storage = getStorage(app);
+document.querySelector("#back").onclick=()=>{
+  game.style.display="none";
+  intro.style.display="flex";
+};
 
-const welcomePage = document.getElementById("welcomePage");
-const accountPage = document.getElementById("accountPage");
-const feedPage = document.getElementById("feedPage");
-const bottomNav = document.getElementById("bottomNav");
-const message = document.getElementById("message");
-
-let authMode = "signup";
-let allVideos = [];
-let selectedCategory = "All";
-let currentUser = null;
-let unsubscribeVideos = null;
-let isUploading = false;
-let searchTerm = "";
-  
-function showWelcome() {
-  welcomePage.hidden = false;
-  accountPage.hidden = true;
-  feedPage.hidden = true;
-  bottomNav.hidden = true;
-}
-
-function showAccount(mode = "signup") {
-  authMode = mode;
-  welcomePage.hidden = true;
-  accountPage.hidden = false;
-  feedPage.hidden = true;
-  bottomNav.hidden = true;
-
-  document.getElementById("accountTitle").textContent =
-    mode === "signup" ? "Create your account" : "Welcome back";
-
-  document.getElementById("accountDescription").textContent =
-    mode === "signup"
-      ? "Join RallyXmon to discover and share videos."
-      : "Sign in to continue to RallyXmon.";
-
-  document.getElementById("authSubmit").textContent =
-    mode === "signup" ? "Create account" : "Sign in";
-
-  document.getElementById("authSwitchText").textContent =
-    mode === "signup" ? "Already have an account? " : "Need an account? ";
-
-  document.getElementById("authSwitch").textContent =
-    mode === "signup" ? "Sign in" : "Create account";
-
-  message.textContent = "";
-}
-
-function showFeed(user) {
-  welcomePage.hidden = true;
-  accountPage.hidden = true;
-  feedPage.hidden = false;
-  bottomNav.hidden = false;
-
-  const name = user.displayName || user.email || "Creator";
-  document.getElementById("userLabel").textContent =
-    "Signed in as " + name;
-}
-
-function setMessage(text) {
-  message.textContent = text;
-}
-
-document.getElementById("getStarted").addEventListener("click", () => {
-  showAccount("signup");
-});
-
-document.getElementById("headerGetStarted").addEventListener("click", () => {
-  showAccount("signup");
-});
-
-document.getElementById("headerSignIn").addEventListener("click", () => {
-  showAccount("signin");
-});
-
-document.getElementById("welcomeSignIn").addEventListener("click", () => {
-  showAccount("signin");
-});
-
-document.getElementById("backWelcome").addEventListener("click", () => {
-  showWelcome();
-});
-
-document.getElementById("authSwitch").addEventListener("click", () => {
-  showAccount(authMode === "signup" ? "signin" : "signup");
-});
-
-document.getElementById("authForm").addEventListener("submit", async (event) => {
-  event.preventDefault();
-
-  const email = document.getElementById("authEmail").value.trim();
-  const password = document.getElementById("authPassword").value;
-
-  const submitButton = document.getElementById("authSubmit");
-  submitButton.disabled = true;
-  setMessage("Please wait...");
-
-  try {
-    if (authMode === "signup") {
-      await createUserWithEmailAndPassword(auth, email, password);
-    } else {
-      await signInWithEmailAndPassword(auth, email, password);
-    }
-    // Firebase's auth listener will open the video feed.
-  } catch (error) {
-    setMessage(error.message || "Could not sign in. Please try again.");
-  } finally {
-    submitButton.disabled = false;
-  }
-});
-
-document.getElementById("googleSignIn").addEventListener("click", async () => {
-  const provider = new GoogleAuthProvider();
-  setMessage("Opening Google sign-in...");
-
-  try {
-    await signInWithPopup(auth, provider);
-  } catch (error) {
-    setMessage(error.message || "Google sign-in failed.");
-  }
-});
-
-function escapeHTML(value = "") {
-  return String(value).replace(/[&<>"']/g, (character) => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;"
-  })[character]);
-}
-
-function formatDate(timestamp) {
-  if (!timestamp || typeof timestamp.toDate !== "function") {
-    return "Recently posted";
-  }
-
-  return timestamp.toDate().toLocaleDateString();
-}
-
-function videoMatches(video) {
-  const categoryMatches =
-    selectedCategory === "All" ||
-    video.category === selectedCategory;
-
-  const text = (
-    (video.title || "") + " " +
-    (video.creatorName || "") + " " +
-    (video.category || "")
-  ).toLowerCase();
-
-  return categoryMatches && text.includes(searchTerm.toLowerCase());
-}
-
-function createShortCard(video) {
-  const card = document.createElement("article");
-  card.className = "short-card";
-
-  const player = document.createElement("video");
-  player.src = video.videoURL;
-  player.controls = true;
-  player.playsInline = true;
-  player.preload = "metadata";
-  player.setAttribute("aria-label", video.title || "Short video");
-
-  const label = document.createElement("div");
-  label.className = "short-label";
-  label.textContent = video.title || "Untitled Short";
-
-  card.append(player, label);
-  return card;
-}
-
-function createVideoCard(video) {
-  const card = document.createElement("article");
-  card.className = "video-card";
-
-  const player = document.createElement("video");
-  player.className = "video-frame";
-  player.src = video.videoURL;
-  player.controls = true;
-  player.playsInline = true;
-  player.preload = "metadata";
-  player.setAttribute("aria-label", video.title || "Video");
-
-  const info = document.createElement("div");
-  info.className = "video-info";
-
-  const title = document.createElement("h3");
-  title.className = "video-title";
-  title.textContent = video.title || "Untitled video";
-
-  const meta = document.createElement("p");
-  meta.className = "video-meta";
-  meta.textContent =
-    (video.creatorName || "Creator") + " · " +
-    (video.category || "Other") + " · " +
-    formatDate(video.createdAt);
-
-  const actions = document.createElement("div");
-  actions.className = "video-actions";
-
-  const likeButton = document.createElement("button");
-  likeButton.className = "small-btn";
-  likeButton.textContent = "♡ Like";
-
-  likeButton.addEventListener("click", () => {
-    const liked = likeButton.dataset.liked === "true";
-    likeButton.dataset.liked = String(!liked);
-    likeButton.textContent = liked ? "♡ Like" : "♥ Liked";
+document.querySelectorAll("[data-move]").forEach(btn=>{
+  const move=btn.dataset.move;
+  btn.addEventListener("pointerdown",e=>{
+    e.preventDefault();
+    keys.add(move);
   });
-
-  const shareButton = document.createElement("button");
-  shareButton.className = "small-btn";
-  shareButton.textContent = "↗ Share";
-
-  shareButton.addEventListener("click", async () => {
-    try {
-      if (navigator.share) {
-        await navigator.share({
-          title: video.title || "RallyXmon video",
-          url: video.videoURL
-        });
-      } else if (navigator.clipboard) {
-        await navigator.clipboard.writeText(video.videoURL);
-        shareButton.textContent = "Link copied";
-      } else {
-        window.prompt("Copy this video link:", video.videoURL);
-      }
-    } catch (error) {
-      // The viewer may cancel the share menu.
-    }
+  ["pointerup","pointercancel","pointerleave"].forEach(ev=>{
+    btn.addEventListener(ev,()=>keys.delete(move));
   });
+});
 
-  actions.append(likeButton, shareButton);
-
-  if (currentUser && video.ownerId === currentUser.uid) {
-    const deleteButton = document.createElement("button");
-    deleteButton.className = "small-btn";
-    deleteButton.textContent = "Delete";
-
-    deleteButton.addEventListener("click", async () => {
-      const confirmed = window.confirm("Delete this video?");
-      if (!confirmed) return;
-
-      deleteButton.disabled = true;
-
-      try {
-        await deleteDoc(doc(db, "videos", video.id));
-
-        if (video.storagePath) {
-          try {
-            await deleteObject(ref(storage, video.storagePath));
-          } catch (storageError) {
-            console.warn("Video file cleanup failed:", storageError);
-          }
-        }
-      } catch (error) {
-        window.alert("Could not delete this video: " + error.message);
-        deleteButton.disabled = false;
-      }
-    });
-
-    actions.append(deleteButton);
-  }
-
-  info.append(title, meta, actions);
-  card.append(player, info);
-  return card;
-}
-
-function renderVideos() {
-  const shortsFeed = document.getElementById("shortsFeed");
-  const videoFeed = document.getElementById("videoFeed");
-
-  shortsFeed.replaceChildren();
-  videoFeed.replaceChildren();
-
-  const filtered = allVideos.filter(videoMatches);
-  const shorts = filtered.filter(video => video.type === "short");
-  const regularVideos = filtered.filter(video => video.type !== "short");
-
-  if (shorts.length === 0) {
-    const empty = document.createElement("p");
-    empty.className = "muted";
-    empty.textContent = "No Shorts yet. Be the first to share one!";
-    shortsFeed.append(empty);
-  } else {
-    shorts.forEach(video => shortsFeed.append(createShortCard(video)));
-  }
-
-  if (regularVideos.length === 0) {
-    const empty = document.createElement("div");
-    empty.className = "empty";
-    empty.textContent = "No videos found yet. Check back soon or upload the first video!";
-    videoFeed.append(empty);
-  } else {
-    regularVideos.forEach(video => videoFeed.append(createVideoCard(video)));
-  }
-}
-
-function listenForVideos() {
-  if (unsubscribeVideos) {
-    unsubscribeVideos();
-  }
-
-  const videosQuery = query(
-    collection(db, "videos"),
-    orderBy("createdAt", "desc")
+document.querySelector("#shoot").addEventListener("pointerdown",e=>{
+  e.preventDefault();
+  ball.position.set(
+    player.position.x,.65,player.position.z-2.2
   );
-
-  unsubscribeVideos = onSnapshot(
-    videosQuery,
-    snapshot => {
-      allVideos = snapshot.docs.map(item => ({
-        id: item.id,
-        ...item.data()
-      }));
-      renderVideos();
-      document.getElementById("feedMessage").textContent = "";
-    },
-    error => {
-      console.error("Video feed error:", error);
-      document.getElementById("feedMessage").textContent =
-        "Could not load videos. Check your Firestore database and security rules.";
-    }
+  ballVelocity.set(
+    player.position.x*.08,-.4,-25
   );
-}
-
-document.getElementById("searchInput").addEventListener("input", event => {
-  searchTerm = event.target.value.trim();
-  renderVideos();
+  message.textContent="TAKE THE SHOT!";
 });
 
-document.getElementById("headerSearch").addEventListener("click", () => {
-  if (currentUser) {
-    document.getElementById("searchInput").focus();
-    document.getElementById("searchInput").scrollIntoView({
-      behavior: "smooth",
-      block: "center"
-    });
-  } else {
-    showAccount("signin");
-  }
-});
+addEventListener("pointerup",()=>keys.clear());
 
-document.getElementById("categoryList").addEventListener("click", event => {
-  const button = event.target.closest("[data-category]");
-  if (!button) return;
-
-  selectedCategory = button.dataset.category;
-
-  document.querySelectorAll("#categoryList .chip").forEach(chip => {
-    chip.classList.toggle("active", chip === button);
-  });
-
-  renderVideos();
-});
-
-document.getElementById("bottomNav").addEventListener("click", event => {
-  const button = event.target.closest("[data-page]");
-  if (!button) return;
-
-  document.querySelectorAll(".nav-btn").forEach(navButton => {
-    navButton.classList.toggle("active", navButton === button);
-  });
-
-  const page = button.dataset.page;
-
-  if (page === "create") {
-    document.getElementById("uploadBox").hidden = false;
-    document.getElementById("uploadBox").scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-  } else if (page === "shorts") {
-    document.getElementById("shortsFeed").scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-  } else if (page === "discover") {
-    document.getElementById("searchInput").focus();
-    document.getElementById("searchInput").scrollIntoView({
-      behavior: "smooth",
-      block: "center"
-    });
-  } else if (page === "you") {
-    window.alert(
-      "Signed in as " + (currentUser?.email || "your account") +
-      ". Use Sign out at the top when you need to leave."
-    );
-  } else {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-});
- 
-document.getElementById("uploadForm").addEventListener("submit", async event => {
-  event.preventDefault();
-
-  if (!currentUser) {
-    window.alert("Please sign in before uploading.");
-    return;
-  }
-
-  if (isUploading) return;
-
-  const title = document.getElementById("videoTitle").value.trim();
-  const category = document.getElementById("videoCategory").value;
-  const type = document.getElementById("videoType").value;
-  const file = document.getElementById("videoFile").files[0];
-  const uploadButton = document.getElementById("uploadButton");
-  const uploadMessage = document.getElementById("uploadMessage");
-
-  if (!title || !file) {
-    uploadMessage.textContent = "Enter a title and choose a video.";
-    return;
-  }
-
-  if (!file.type.startsWith("video/")) {
-    uploadMessage.textContent = "Please choose a valid video file.";
-    return;
-  }
-
-  // Keep uploads manageable for mobile data and storage.
-  const maxSize = 100 * 1024 * 1024;
-
-  if (file.size > maxSize) {
-    uploadMessage.textContent =
-      "This video is over 100 MB. Please choose a smaller file.";
-    return;
-  }
-
-  isUploading = true;
-  uploadButton.disabled = true;
-  uploadButton.textContent = "Uploading...";
-  uploadMessage.textContent =
-    "Uploading video. Keep this page open until it finishes.";
-
-  let uploadedStoragePath = "";
-
-  try {
-    const safeFileName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-    const storagePath =
-      "videos/" + currentUser.uid + "/" + Date.now() + "_" + safeFileName;
-
-    const storageReference = ref(storage, storagePath);
-
-    await uploadBytes(storageReference, file);
-    uploadedStoragePath = storagePath;
-
-    const videoURL = await getDownloadURL(storageReference);
-
-    await addDoc(collection(db, "videos"), {
-      title,
-      category,
-      type,
-      videoURL,
-      storagePath,
-      ownerId: currentUser.uid,
-      creatorName: currentUser.displayName || currentUser.email || "Creator",
-      createdAt: serverTimestamp()
-    });
-
-    document.getElementById("uploadForm").reset();
-    uploadMessage.textContent = "Your video was uploaded successfully!";
-    document.getElementById("uploadBox").hidden = true;
-
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  } catch (error) {
-    console.error("Upload failed:", error);
-
-    // If the file uploaded but its post did not, try to remove the unused file.
-    if (uploadedStoragePath) {
-      try {
-        await deleteObject(ref(storage, uploadedStoragePath));
-      } catch (cleanupError) {
-        console.warn("Could not clean up uploaded file:", cleanupError);
-      }
-    }
-
-    uploadMessage.textContent =
-      "Upload failed: " + (error.message || "Please check Firebase setup and try again.");
-  } finally {
-    isUploading = false;
-    uploadButton.disabled = false;
-    uploadButton.textContent = "Upload video";
-  }
-});
-
-document.getElementById("signOutButton").addEventListener("click", async () => {
-  try {
-    await signOut(auth);
-    showWelcome();
-  } catch (error) {
-    window.alert("Could not sign out: " + error.message);
-  }
-});
-
-// Automatically show the video feed when a user is signed in.
-onAuthStateChanged(auth, user => {
-  currentUser = user;
-
-  if (user) {
-    showFeed(user);
-    listenForVideos();
-  } else {
-    if (unsubscribeVideos) {
-      unsubscribeVideos();
-      unsubscribeVideos = null;
-    }
-
-    allVideos = [];
-    document.getElementById("shortsFeed").replaceChildren();
-    document.getElementById("videoFeed").replaceChildren();
-    document.getElementById("uploadBox").hidden = true;
-    showWelcome();
-  }
+addEventListener("resize",()=>{
+  if(!camera||!renderer)return;
+  camera.aspect=innerWidth/innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth,innerHeight);
 });
 </script>
 </body>
-</html>
+  </html>
